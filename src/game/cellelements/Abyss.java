@@ -3,6 +3,7 @@ package game.cellelements;
 import game.map.Quarter;
 import game.roles.CellElement;
 import game.roles.Movable;
+import tool.LOGGER;
 
 /**
  * 
@@ -22,28 +23,9 @@ public class Abyss extends CellElement{
      */
     @Override
     public boolean acceptMovable(Movable movable) {
-        // TODO implement here
+        LOGGER.enterCell(this);
+        movable.destroy();
         return false;
     }
-
-    /**
-     * @param quarter
-     * @return
-     */
-    @Override
-    public boolean obstacleForProjectile(Quarter quarter) {
-        // TODO implement here
-        return false;
-    }
-
-    /**
-     * @return
-     */
-    @Override
-    public boolean enterMovable() {
-        // TODO implement here
-        return true;
-    }
-
 
 }

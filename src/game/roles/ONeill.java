@@ -1,4 +1,7 @@
 package game.roles;
+
+import tool.LOGGER;
+
 /**
  * 
  */
@@ -37,14 +40,6 @@ public class ONeill implements Movable{
      * 
      */
     public void boxDown() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void destroy() {
         // TODO implement here
     }
 

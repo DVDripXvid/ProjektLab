@@ -32,23 +32,4 @@ public class ZPM extends CellElement{
         return true;
     }
 
-    /**
-     * @param quarter
-     * @return
-     */
-    @Override
-    public boolean obstacleForProjectile(Quarter quarter) {
-        // TODO implement here
-        return false;
-    }
-
-    /**
-     * @return
-     */
-    @Override
-    public boolean enterMovable() {
-        // TODO implement here
-        return true;
-    }
-
 }
