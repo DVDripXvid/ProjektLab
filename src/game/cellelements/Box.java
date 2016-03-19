@@ -1,5 +1,6 @@
 package game.cellelements;
 
+import game.map.Quarter;
 import game.roles.CellElement;
 import game.roles.Movable;
 
@@ -22,10 +23,24 @@ public class Box extends CellElement implements Movable{
         // TODO implement here
         return null;
     }
-
+    
+    /**
+     * @return
+     */
     @Override
-    public void destroy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean enterMovable() {
+        // TODO implement here
+        return false;
+    }
+    
+    /**
+     * @param quarter
+     * @return
+     */
+    @Override
+    public boolean obstacleForProjectile(Quarter quarter) {
+        // TODO implement here
+        return true;
     }
 
 }
