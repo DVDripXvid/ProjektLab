@@ -10,7 +10,7 @@ import game.roles.Movable;
  * 
  */
 public class Scales extends CellElement{
-
+protected Gate myGate;
     /**
      * Default constructor
      */
@@ -21,6 +21,7 @@ public class Scales extends CellElement{
      * @param gate
      */
     public Scales(Gate gate) {
+        myGate=gate;
         // TODO implement here
     }
 
@@ -32,6 +33,7 @@ public class Scales extends CellElement{
     @Override
     public boolean acceptMovable(Movable movable) {
         // TODO implement here
+        myGate.open();
         return false;
     }
 
@@ -51,6 +53,7 @@ public class Scales extends CellElement{
     @Override
     public boolean enterMovable() {
         // TODO implement here
+
         return true;
     }
 
@@ -59,6 +62,7 @@ public class Scales extends CellElement{
      */
     @Override
     public void exitMovable() {
+        myGate.close();
         // TODO implement here
     }
 

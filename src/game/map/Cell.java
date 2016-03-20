@@ -3,15 +3,23 @@ package game.map;
 import game.roles.CellElement;
 import game.roles.Movable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * 
  */
 public class Cell {
 
+private HashMap<Quarter,Cell>neighbours;
+    private ArrayList<CellElement>ElementList;
     /**
      * Default constructor
      */
     public Cell() {
+
+        ElementList=null;
+
     }
 
 
@@ -33,8 +41,13 @@ public class Cell {
      * @return
      */
     public CellElement take() {
-        // TODO implement here
-        return null;
+        CellElement visz=null;
+        for (int i=0;i<ElementList.size();i++) {
+         if(ElementList.get(i).take()!=null)
+           visz= ElementList.get(i).take();
+
+        }
+        return visz;
     }
 
     /**
@@ -42,8 +55,8 @@ public class Cell {
      * @return
      */
     public Cell getNeighbour(Quarter quarter) {
-        // TODO implement here
-        return null;
+        Cell nCell= neighbours.get(quarter);
+        return nCell;
     }
 
     /**
@@ -59,15 +72,26 @@ public class Cell {
      * @return
      */
     public boolean enterMovable() {
-        // TODO implement here
-        return false;
+        boolean ret=true;
+        for (int i=0;i<ElementList.size();i++) {
+
+ret=ret&& ElementList.get(i).enterMovable();
+        }
+
+
+
+
+        return ret;
     }
 
     /**
      * 
      */
     public void exitMovable() {
-        // TODO implement here
+        for (int i=0;i<ElementList.size();i++)
+           ElementList.get(i).exitMovable();
+
+
     }
 
     /**
@@ -75,7 +99,12 @@ public class Cell {
      * @return
      */
     public boolean acceptMovable(Movable movable) {
-        // TODO implement here
+        for (int i=0;i<ElementList.size();i++)
+            if(ElementList.get(i).acceptMovable(movable))
+                ElementList.remove(i);
+
+
+
         return false;
     }
 
@@ -84,20 +113,19 @@ public class Cell {
      * @param cell
      */
     public void setNeighbour(Quarter quarter, Cell cell) {
-        // TODO implement here
+       neighbours.put(quarter,cell);
     }
 
     /**
      * @param cellElement
      */
     public void addElement(CellElement cellElement) {
-        // TODO implement here
+        ElementList.add(cellElement);
     }
 
     /**
      * 
      */
-    public enum Quarter {
-    }
+
 
 }
