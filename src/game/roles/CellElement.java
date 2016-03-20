@@ -21,7 +21,7 @@ public abstract class CellElement {
      */
     public boolean acceptMovable(Movable movable) {
         LOGGER.enterCell(this);
-        // TODO implement here
+
         return false;
     }
 
@@ -31,7 +31,7 @@ public abstract class CellElement {
      */
     public boolean obstacleForProjectile(Quarter quarter) {
         LOGGER.meetProjectile(this);
-        // TODO implement here
+
         return false;
     }
 
@@ -40,7 +40,7 @@ public abstract class CellElement {
      */
     public boolean enterMovable() {
         LOGGER.askCell(this);
-        // TODO implement here
+
         return true;
     }
 
@@ -49,14 +49,13 @@ public abstract class CellElement {
      */
     public void exitMovable() {
         LOGGER.leaveCell(this);
-        // TODO implement here
+
     }
 
     /**
      * @return
      */
     public CellElement take() {
-        // TODO implement here
         return null;
     }
     

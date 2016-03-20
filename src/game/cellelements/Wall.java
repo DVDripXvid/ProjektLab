@@ -16,7 +16,7 @@ public class Wall extends CellElement{
     
         @Override
     public boolean enterMovable() {
-        // TODO implement here
+
         return false;
     }
     
@@ -26,7 +26,7 @@ public class Wall extends CellElement{
      */
     @Override
     public boolean obstacleForProjectile(Quarter quarter) {
-        // TODO implement here
+
         return true;
     }
 

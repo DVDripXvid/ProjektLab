@@ -1,33 +1,45 @@
 package game.roles;
 
+import game.cellelements.Box;
 import game.map.Cell;
+import game.map.Projectile;
 import game.map.Quarter;
 import tool.LOGGER;
+
+
 
 /**
  * 
  */
 public class ONeill implements Movable{
 public Cell aCell;
+    private Quarter dir;
+   private CellElement box;
+
     /**
      * Default constructor
      */
     public ONeill() {
     }
 
-    public ONeill(Cell a) {
-        aCell=a;    }
+    public ONeill(Cell a,Quarter quarter) {
+        aCell=a;
+        dir=quarter;
+
+
+    }
 
 
     /**
      * 
      */
-    public void moveTo(Quarter irany) {
-        Cell nCell= aCell.getNeighbour(irany);
-        if (nCell.enterMovable())
-        {aCell.exitMovable();
-            aCell=nCell;
-        aCell.acceptMovable(this);
+    public void moveTo(Quarter quarter) {
+        Cell nCell= aCell.getNeighbour(quarter);
+            this.dir=quarter;
+            if (nCell.enterMovable())
+            {aCell.exitMovable();
+                aCell=nCell;
+                aCell.acceptMovable(this);
 
 
         }
@@ -53,21 +65,34 @@ public Cell aCell;
      * 
      */
     public void shoot() {
-        // TODO implement here
+        Projectile bullet= new Projectile(this.aCell);
+        bullet.launch(dir);
+
     }
 
     /**
      * 
      */
     public void boxUp() {
-        // TODO implement here
+
+        box= aCell.getNeighbour(dir).take();
+
+
     }
 
     /**
      * 
      */
     public void boxDown() {
-        // TODO implement here
-    }
+        Cell nCell= aCell.getNeighbour(dir);
+        if (nCell.enterMovable())
+        {
+
+           // aCell.acceptMovable(box);
+        if(box!=null) {
+            aCell.getNeighbour(dir).placeBox(box);
+
+        }
+    }}
 
 }
