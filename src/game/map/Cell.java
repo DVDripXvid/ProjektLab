@@ -18,8 +18,8 @@ private HashMap<Quarter,Cell>neighbours;
      */
     public Cell() {
 
-        ElementList=null;
-
+        ElementList=new ArrayList<CellElement>();
+neighbours= new HashMap<Quarter,Cell>();
     }
 
 
@@ -64,8 +64,13 @@ private HashMap<Quarter,Cell>neighbours;
      * @return
      */
     public boolean testProjectile(Quarter quarter) {
-        // TODO implement here
-        return false;
+        boolean obstacle=false;
+        for (int i=0;i<ElementList.size();i++) {
+         obstacle= obstacle &&ElementList.get(i).obstacleForProjectile(quarter);
+
+        }
+
+        return obstacle;
     }
 
     /**
@@ -113,7 +118,28 @@ ret=ret&& ElementList.get(i).enterMovable();
      * @param cell
      */
     public void setNeighbour(Quarter quarter, Cell cell) {
+        Quarter opdir=Quarter.NORTH;
+        switch (quarter) {
+            case NORTH:
+                opdir=Quarter.SOUTH;
+                break;
+            case SOUTH:
+                opdir=Quarter.NORTH;
+                break;
+            case EAST:
+                opdir=Quarter.WEST;
+                break;
+            case WEST:
+                opdir=Quarter.EAST;
+                break;
+        }
+
+
        neighbours.put(quarter,cell);
+       // cell.setNeighbour(opdir,this);
+      /////////////////////////////////ez itt nem jó
+
+
     }
 
     /**

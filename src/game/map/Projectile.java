@@ -1,29 +1,37 @@
 package game.map;
 
+
+import tool.LOGGER;
+
 /**
  * 
  */
 public class Projectile {
-
-    /**
-     * Default constructor
-     */
-    public Projectile() {
-    }
-
+Cell aCell;
 
     /**
      * @param cell
      */
-    public void Projectile(Cell cell) {
-        // TODO implement here
+
+    public Projectile(Cell cell) {
+
+        this.aCell=cell;
+       LOGGER.ProjectileLaunched();
     }
 
     /**
      * @param quarter
      */
     public void launch(Quarter quarter) {
-        // TODO implement here
+        Cell nCell= aCell.getNeighbour(quarter);
+while (!nCell.testProjectile(quarter)){
+    LOGGER.ProjectilePassedCell(aCell);
+    aCell=nCell;
+
+    nCell= aCell.getNeighbour(quarter);
+}
+
+
     }
 
 }

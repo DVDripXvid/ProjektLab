@@ -28,7 +28,7 @@ public class ZPM extends CellElement{
      */
     @Override
     public boolean acceptMovable(Movable movable) {
-        // TODO implement here
+count--;
         return true;
     }
 
