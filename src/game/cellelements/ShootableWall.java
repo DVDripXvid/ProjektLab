@@ -1,30 +1,28 @@
 package game.cellelements;
 
 
-import game.map.Cell;
+
 import game.map.Quarter;
-import javafx.util.Pair;
+import game.roles.Portal;
+
+import java.awt.*;
+
 
 /**
  * 
  */
 public class ShootableWall extends Wall {
+static Color proColor=Color.BLUE;         //BIZTOS NEM IDE!!!!!!!!!!!!
+    private static Portal bluePortal;
+    private static Portal yellowPortal;
 
-    /**
-     * Default constructor
-     */
     public ShootableWall() {
     }
 
     /**
      * 
      */
-    private static Pair <Cell, Quarter> bluePortal;
 
-    /**
-     * 
-     */
-    private static Pair <Cell, Quarter> yellowPortal;
 
 
     /**
@@ -33,6 +31,13 @@ public class ShootableWall extends Wall {
      */
     @Override
     public boolean obstacleForProjectile(Quarter quarter) {
+
+        if(proColor==Color.BLUE){
+
+
+        }
+
+
         // TODO implement here
         return true;
     }

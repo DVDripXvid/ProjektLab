@@ -7,6 +7,7 @@ package tool;
 
 import game.cellelements.doors.Door;
 import game.cellelements.doors.Gate;
+import game.map.Cell;
 import game.roles.CellElement;
 import game.roles.Movable;
 
@@ -44,8 +45,16 @@ public abstract class LOGGER {
     }
 
     public static void gameSuccess() {
-        System.out.println("Game over, success");
+        System.out.println("            Game over, success");
     }
+
+    public static void ProjectileLaunched() {
+        System.out.println("            Projectile Launched");
+    }
+    public static void ProjectilePassedCell(Cell cell) {
+        System.out.println("            Projectile passed "+cell);
+    }
+
 
 
 

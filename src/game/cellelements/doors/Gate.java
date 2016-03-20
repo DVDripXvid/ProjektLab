@@ -4,6 +4,7 @@ import game.cellelements.doors.Door;
 import game.map.Quarter;
 import game.roles.CellElement;
 import game.roles.Movable;
+import tool.LOGGER;
 
 /**
  * 
@@ -71,7 +72,9 @@ public class Gate extends Door {
      * 
      */
     public void open() {
+
         isClosed=false;
+        LOGGER.doorStatus(this);
         // TODO implement here
     }
 
@@ -80,6 +83,7 @@ public class Gate extends Door {
      */
     public void close() {
         isClosed=true;
+        LOGGER.doorStatus(this);
         // TODO implement here
     }
 
