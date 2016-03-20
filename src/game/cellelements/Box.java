@@ -20,8 +20,8 @@ public class Box extends CellElement implements Movable{
      */
     @Override
     public CellElement take() {
-        // TODO implement here
-        return null;
+
+        return this;
     }
     
     /**
@@ -29,7 +29,7 @@ public class Box extends CellElement implements Movable{
      */
     @Override
     public boolean enterMovable() {
-        // TODO implement here
+
         return false;
     }
     
@@ -39,7 +39,7 @@ public class Box extends CellElement implements Movable{
      */
     @Override
     public boolean obstacleForProjectile(Quarter quarter) {
-        // TODO implement here
+
         return true;
     }
 

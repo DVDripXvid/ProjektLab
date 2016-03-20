@@ -9,11 +9,12 @@ import game.roles.Movable;
  * 
  */
 public abstract class Door extends CellElement{
-
+protected boolean isClosed;
     /**
      * Default constructor
      */
     public Door() {
+        isClosed=false;
     }
 
     /**
@@ -26,7 +27,10 @@ public abstract class Door extends CellElement{
         // TODO implement here
         return false;
     }
+public boolean isClosed(){
 
+    return isClosed;
+}
     /**
      * @param quarter
      * @return

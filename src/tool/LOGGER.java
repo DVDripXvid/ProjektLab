@@ -5,6 +5,8 @@
  */
 package tool;
 
+import game.cellelements.doors.Door;
+import game.cellelements.doors.Gate;
 import game.roles.CellElement;
 import game.roles.Movable;
 
@@ -34,6 +36,17 @@ public abstract class LOGGER {
     public static void destroyMovable(Movable movable) {
         System.out.println("            " + movable.getName() + " was destroyed");
     }
-    
-    
+    public static void doorStatus(Door door) {
+        if(door.isClosed())
+        System.out.println("            "+ door + " closed");
+        else         System.out.println("            "+ door + " opened");
+
+    }
+
+    public static void gameSuccess() {
+        System.out.println("Game over, success");
+    }
+
+
+
 }

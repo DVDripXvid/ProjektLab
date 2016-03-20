@@ -4,6 +4,7 @@ import game.cellelements.doors.Door;
 import game.map.Quarter;
 import game.roles.CellElement;
 import game.roles.Movable;
+import tool.LOGGER;
 
 
 /**
@@ -11,10 +12,9 @@ import game.roles.Movable;
  */
 public class Exit extends Door {
 
-    /**
-     * Default constructor
-     */
+
     public Exit() {
+
     }
 
     /**
@@ -24,7 +24,7 @@ public class Exit extends Door {
      */
     @Override
     public boolean acceptMovable(Movable movable) {
-        // TODO implement here
+        LOGGER.gameSuccess();
         return false;
     }
 
@@ -34,7 +34,6 @@ public class Exit extends Door {
      */
     @Override
     public boolean obstacleForProjectile(Quarter quarter) {
-        // TODO implement here
         return false;
     }
 
@@ -43,25 +42,12 @@ public class Exit extends Door {
      */
     @Override
     public boolean enterMovable() {
-        // TODO implement here
-        return false;
+
+return !isClosed;
+
     }
 
-    /**
-     * 
-     */
-    @Override
-    public void exitMovable() {
-        // TODO implement here
-    }
 
-    /**
-     * @return
-     */
-    @Override
-    public CellElement take() {
-        // TODO implement here
-        return null;
-    }
+
 
 }

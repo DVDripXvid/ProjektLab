@@ -33,8 +33,9 @@ public class Gate extends Door {
      */
     @Override
     public boolean obstacleForProjectile(Quarter quarter) {
-        // TODO implement here
-        return false;
+        if(isClosed)
+            return false;
+        else return true;
     }
 
     /**
@@ -43,7 +44,9 @@ public class Gate extends Door {
     @Override
     public boolean enterMovable() {
         // TODO implement here
+        if(isClosed)
         return false;
+        else return true;
     }
 
     /**
@@ -68,6 +71,7 @@ public class Gate extends Door {
      * 
      */
     public void open() {
+        isClosed=false;
         // TODO implement here
     }
 
@@ -75,6 +79,7 @@ public class Gate extends Door {
      * 
      */
     public void close() {
+        isClosed=true;
         // TODO implement here
     }
 
