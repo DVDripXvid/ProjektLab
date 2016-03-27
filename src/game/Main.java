@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  * Created by Ádám on 19/03/2016.
  */
-
 package game;
 
 import game.cellelements.*;
@@ -20,15 +18,11 @@ import game.roles.ONeill;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import tool.LOGGER;
 
 public class Main {
     
-
-    
-
-
-
-
+    private final static Object LOG_OBJECT = new Object();
 
     public static String read() {//beolvasás
         BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
@@ -41,19 +35,23 @@ public class Main {
         return line;
     }
 
-
-    public  static void Move()
-    {
+    public static void Move() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
 
         ce0.setNeighbour(Quarter.SOUTH, ce1);
 
         ONeill o = new ONeill(ce0, Quarter.SOUTH);
+        
+        //log
+        LOGGER.addObject(ce0, "ce0");
+        LOGGER.addObject(ce1, "ce1");
+        LOGGER.addObject(o, "o");
+        
         o.moveTo(Quarter.SOUTH);
     }
-    public  static void ONeill2Abyss()
-    {
+
+    public static void ONeill2Abyss() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
 
@@ -62,12 +60,12 @@ public class Main {
         Abyss abyss = new Abyss();
         ce1.addElement(abyss);
 
-        ONeill o = new ONeill(ce0,Quarter.SOUTH);
+        ONeill o = new ONeill(ce0, Quarter.SOUTH);
         o.moveTo(Quarter.SOUTH);
 
     }
-    public static void Shoot2Shootable()
-    {
+
+    public static void Shoot2Shootable() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
         Cell ce2 = new Cell();
@@ -78,13 +76,14 @@ public class Main {
         ShootableWall swall = new ShootableWall(ce2);
         ce2.addElement(swall);
 
-        ONeill o = new ONeill(ce0,Quarter.SOUTH);
+        ONeill o = new ONeill(ce0, Quarter.SOUTH);
         o.shoot();
 
     }
 
-    public static void Box2Scales()
-    {
+    public static void Box2Scales() {
+        LOGGER.newUseCase("box to scales");
+        
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
         Cell ce2 = new Cell();
@@ -104,13 +103,28 @@ public class Main {
         ce2.addElement(scales);
 
         ONeill o = new ONeill(ce0, Quarter.SOUTH);
-
+        
+        LOGGER.addObject(o, "Oneill");
+        LOGGER.addObject(box, "box");
+        LOGGER.addObject(ce0, "ce0");
+        LOGGER.addObject(ce1, "ce1");
+        LOGGER.addObject(ce2, "ce2");
+        LOGGER.addObject(ce3, "ce3");
+        LOGGER.addObject(gate, "gate");
+        LOGGER.addObject(scales, "scales");
+        
+        //ha többb metódus hívás történik egy metódusból akkor kell new-same-end level
+        LOGGER.newLevel(LOG_OBJECT);
+        LOGGER.sameLevel(LOG_OBJECT);
         o.boxUp();
+        LOGGER.sameLevel(LOG_OBJECT);
         o.moveTo(Quarter.SOUTH);
+        LOGGER.sameLevel(LOG_OBJECT);
         o.boxDown();
+        LOGGER.endLevel(LOG_OBJECT);
     }
-    public static void Shoot2Obstacle()
-    {
+
+    public static void Shoot2Obstacle() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
         Cell ce2 = new Cell();
@@ -121,19 +135,19 @@ public class Main {
         Box box = new Box();
         ce1.addElement(box);
 
-        ONeill o = new ONeill(ce0,Quarter.SOUTH);
+        ONeill o = new ONeill(ce0, Quarter.SOUTH);
         o.shoot();
 
     }
-    public static void setNeighbours()
-    {
+
+    public static void setNeighbours() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
 
         ce0.setNeighbour(Quarter.SOUTH, ce1);
     }
-    public static void Box2FreeCell()
-    {
+
+    public static void Box2FreeCell() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
         Cell ce2 = new Cell();
@@ -150,8 +164,8 @@ public class Main {
         o.moveTo(Quarter.SOUTH);
         o.boxDown();
     }
-    public static void Box2Abyss()
-    {
+
+    public static void Box2Abyss() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
         Cell ce2 = new Cell();
@@ -172,9 +186,7 @@ public class Main {
         o.boxDown();
     }
 
-
-    public static void ZPM_pickup()
-    {
+    public static void ZPM_pickup() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
 
@@ -187,8 +199,8 @@ public class Main {
         o.moveTo(Quarter.SOUTH);
 
     }
-    public static void ONeillExits()
-    {
+
+    public static void ONeillExits() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
 
@@ -200,8 +212,8 @@ public class Main {
         ONeill o = new ONeill(ce0, Quarter.SOUTH);
         o.moveTo(Quarter.SOUTH);
     }
-    public static void CreatePortal()
-    {
+
+    public static void CreatePortal() {
         Cell ce0 = new Cell();
         Cell ce1 = new Cell();
         Cell ce2 = new Cell();
@@ -222,9 +234,9 @@ public class Main {
         ONeill o = new ONeill(ce2, Quarter.SOUTH);
 
         o.shoot();
-        swall1.portalColor= ShootableWall.PortalColor.BLUE;
+        swall1.portalColor = ShootableWall.PortalColor.BLUE;
         o.moveTo(Quarter.NORTH);
-        swall1.portalColor= ShootableWall.PortalColor.YELLOW;
+        swall1.portalColor = ShootableWall.PortalColor.YELLOW;
         o.shoot();
 
     }
@@ -233,8 +245,6 @@ public class Main {
 
         int c;
         System.out.print("BestInBest Skeleton modell menü:\n");
-
-
 
         System.out.println("1:\tO’Neill mozgása");
         System.out.println("2:\tDoboz elhelyezése mérlegre");
@@ -249,9 +259,9 @@ public class Main {
         System.out.println("11:\tFéregárat létrehozása");
         System.out.println("\n\n0:\tKILÉPÉS\n");
 
-
-        do {  c=Integer.parseInt(read());
-            switch (c){
+        do {
+            c = Integer.parseInt(read());
+            switch (c) {
                 case 1:
                     Move();
                     break;
@@ -286,16 +296,10 @@ public class Main {
                     CreatePortal();
                     break;
 
-
             }
 
-
-
-
-        }while (c!=0);
+        } while (c != 0);
 
     }
-
-
 
 }

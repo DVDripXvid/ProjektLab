@@ -5,57 +5,69 @@
  */
 package tool;
 
-import game.cellelements.doors.Door;
-import game.cellelements.doors.Gate;
-import game.map.Cell;
-import game.roles.CellElement;
-import game.roles.Movable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Olivér
  */
 public abstract class LOGGER {
-    
-    //CellElement calls
-    public static void leaveCell(CellElement cellElement){
-        System.out.println("        Movable leave the " + cellElement);
-    }
-    
-    public static void enterCell(CellElement cellElement){
-        System.out.println("        Movable enter the " + cellElement);
-    }
-    
-    public static void askCell(CellElement cellElement){
-        System.out.println("        Movable asking the " + cellElement);
-    }
-    
-    public static void meetProjectile(CellElement cellElement){
-        System.out.println("        Projectile reached the " + cellElement);
-    }
-    
-    public static void destroyMovable(Movable movable) {
-        System.out.println("            " + movable.getName() + " was destroyed");
-    }
-    public static void doorStatus(Door door) {
-        if(door.isClosed())
-        System.out.println("            "+ door + " closed");
-        else         System.out.println("            "+ door + " opened");
 
+    private static final Map<Object, String> objects = new HashMap<>();
+    private static final Map<Object, String> levels = new HashMap<>();
+
+    private static boolean loggingTime = true;
+
+    private static String tabs = "";
+
+    public boolean isLoggingTime() {
+        return loggingTime;
     }
 
-    public static void gameSuccess() {
-        System.out.println("            Game over, success");
+    public void setLoggingTime(boolean loggingTime) {
+        LOGGER.loggingTime = loggingTime;
     }
 
-    public static void ProjectileLaunched() {
-        System.out.println("            Projectile Launched");
+    public static void log(Object object) {
+        if (!loggingTime) {
+            return;
+        }
+
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        for (int i = stackTraceElements.length - 1; i >= 0; --i) {
+            StackTraceElement stackTraceElement = stackTraceElements[i];
+            if (object.getClass().getName().equals(stackTraceElement.getClassName())
+                    || object.getClass().getSuperclass().getName().equals(stackTraceElement.getClassName())) {
+                System.out.print(" --> ");
+                System.out.print(stackTraceElement.getMethodName());
+                System.out.print("(" + objects.get(object) + ")");
+            }
+        }
     }
-    public static void ProjectilePassedCell(Cell cell) {
-        System.out.println("            Projectile passed "+cell);
+
+    public static void newLevel(Object object) {
+        tabs += "\t\t\t\t";
+        levels.put(object, tabs);
     }
 
+    public static void sameLevel(Object object) {
+        System.out.print("\n" + levels.get(object));
+    }
 
+    public static void endLevel(Object object) {
+        tabs = tabs.substring(4);
+        levels.remove(object);
+    }
 
+    public static void addObject(Object object, String name) {
+        objects.put(object, name);
+    }
+
+    public static void newUseCase(String useCaseName) {
+        objects.clear();
+        levels.clear();
+        System.out.println("\nUse case: " + useCaseName);
+    }
 
 }

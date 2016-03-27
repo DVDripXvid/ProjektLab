@@ -1,15 +1,8 @@
 package game.cellelements;
 
-
-
 import game.map.Cell;
 import game.map.Quarter;
-
-import java.awt.*;
-
-
-
-
+import tool.LOGGER;
 
 public class ShootableWall extends Wall {
 
@@ -18,42 +11,41 @@ public class ShootableWall extends Wall {
         YELLOW;
     }
 
-  public   static PortalColor portalColor = null;//milyen színű lövedéktípus van betöltve
+    public static PortalColor portalColor = null;//milyen színű lövedéktípus van betöltve
     private static Portal bluePortal;//kék portál
     private static Portal yellowPortal;// sárga portál
-    private Cell myCell;// a fal cellája
+    private final Cell myCell;// a fal cellája
 
     public ShootableWall(Cell cell) {
-        myCell=cell;
+        myCell = cell;
     }//konstruktor
-
 
     @Override
     public boolean obstacleForProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek és létrehozzunk a portált
-
+        LOGGER.log(this);
         switch (quarter) {
             case NORTH:
-                quarter=Quarter.SOUTH;
+                quarter = Quarter.SOUTH;
                 break;
             case SOUTH:
-                quarter=Quarter.NORTH;
+                quarter = Quarter.NORTH;
                 break;
             case EAST:
-                quarter=Quarter.WEST;
+                quarter = Quarter.WEST;
                 break;
             case WEST:
-                quarter=Quarter.EAST;
+                quarter = Quarter.EAST;
                 break;
         }
-        if(portalColor==PortalColor.BLUE){
+        if (portalColor == PortalColor.BLUE) {
             bluePortal.setCell(myCell);
             bluePortal.setQuarter(quarter);
         }
-        if(portalColor==PortalColor.YELLOW){
+        if (portalColor == PortalColor.YELLOW) {
             yellowPortal.setCell(myCell);
             yellowPortal.setQuarter(quarter);
         }
-/*if(yellowPortal.getCell()!=null&&bluePortal.getCell()!=null){
+        /*if(yellowPortal.getCell()!=null&&bluePortal.getCell()!=null){
     yellowPortal.getCell().setNeighbour(bluePortal.getQuarter(),bluePortal.getCell());
     bluePortal.getCell().setNeighbour(yellowPortal.getQuarter(),yellowPortal.getCell());
 
@@ -63,7 +55,7 @@ public class ShootableWall extends Wall {
         return true;
     }
 
-    private final class Portal{//Portál belső class
+    private final class Portal {//Portál belső class
 
         private Cell cell;//hol van a portál
         private Quarter quarter;//a falnak melyik oldalán
@@ -88,7 +80,6 @@ public class ShootableWall extends Wall {
         public void setQuarter(Quarter quarter) {
             this.quarter = quarter;
         }//beállítjuk az irányt amerre néz
-
 
     }
 }
