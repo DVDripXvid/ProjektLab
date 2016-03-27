@@ -24,11 +24,11 @@ Cell aCell;
      */
     public void launch(Quarter quarter) {
         Cell nCell= aCell.getNeighbour(quarter);
-while (!nCell.testProjectile(quarter)){
-    LOGGER.ProjectilePassedCell(aCell);
-    aCell=nCell;
+        while (!nCell.testProjectile(quarter)){
+        LOGGER.ProjectilePassedCell(aCell);
+        aCell=nCell;
 
-    nCell= aCell.getNeighbour(quarter);
+        nCell= aCell.getNeighbour(quarter);
 }
 
 

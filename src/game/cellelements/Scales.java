@@ -6,36 +6,23 @@ import game.map.Quarter;
 import game.roles.CellElement;
 import game.roles.Movable;
 
-/**
- * 
- */
+
 public class Scales extends CellElement{
 protected Gate myGate;
 
-    /**
-     * @param gate
-     */
-    public Scales(Gate gate) {
-        myGate=gate;
-
+    public Scales(Gate gate) {      
+        myGate=gate;                // összekötjük a mérleget az ajtajával
     }
 
-    /**
-     * 
-     * @param movable
-     * @return 
-     */
-    @Override
+    @Override                       // a függvény felülírása az aktuális osztályra 
     public boolean acceptMovable(Movable movable) {
-
-        myGate.open();
-        return false;
+        myGate.open();              // ráléptek, kinyílik az ajtó
+        return false;               // a mérleg nem ZPM
     }
 
-    @Override
+    @Override                       // a függvény felülírása az aktuális osztályra 
     public void exitMovable() {
-        myGate.close();
-        // TODO implement here
+        myGate.close();             // elléptek róla, bezárul az ajtó
     }
 
 }

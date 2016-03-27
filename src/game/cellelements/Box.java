@@ -4,43 +4,28 @@ import game.map.Quarter;
 import game.roles.CellElement;
 import game.roles.Movable;
 
-/**
- * 
- */
+
 public class Box extends CellElement implements Movable{
 
-    /**
-     * Default constructor
-     */
     public Box() {
     }
 
-    /**
-     * @return
-     */
-    @Override
-    public CellElement take() {
+    @Override                           // a függvény felülírása az aktuális osztályra
+    public CellElement take() {         // doboz felvétele, azaz önmaga átadása
 
         return this;
     }
     
-    /**
-     * @return
-     */
-    @Override
-    public boolean enterMovable() {
+    @Override                           // a függvény felülírása az aktuális osztályra
+    public boolean enterMovable() {     
 
-        return false;
+        return false;                   // dobozra nem lehet lépni
     }
     
-    /**
-     * @param quarter
-     * @return
-     */
-    @Override
-    public boolean obstacleForProjectile(Quarter quarter) {
+    @Override                           // a függvény felülírása az aktuális osztályra
+    public boolean obstacleForProjectile(Quarter quarter) { 
 
-        return true;
+        return true;                    // a doboz megálítja a lövedéket
     }
 
 }

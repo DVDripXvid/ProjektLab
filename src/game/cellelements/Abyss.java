@@ -5,27 +5,17 @@ import game.roles.CellElement;
 import game.roles.Movable;
 import tool.LOGGER;
 
-/**
- * 
- */
+
 public class Abyss extends CellElement{
 
-    /**
-     * Default constructor
-     */
-    public Abyss() {
+    public Abyss() {                                 
     }
 
-    /**
-     * 
-     * @param movable
-     * @return 
-     */
-    @Override
-    public boolean acceptMovable(Movable movable) {
-        LOGGER.enterCell(this);
-        movable.destroy();
-        return false;
+    @Override                                        // a függvény felülírása az aktuális osztályra    
+    public boolean acceptMovable(Movable movable) {  
+        LOGGER.enterCell(this);                      // az esemény loggolása
+        movable.destroy();                           // a mozgatható objektum megsemmisítése
+        return false;                                // az szakadék nem ZPM
     }
 
 }
