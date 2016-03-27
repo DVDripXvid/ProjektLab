@@ -8,21 +8,17 @@ import tool.LOGGER;
 
 
 
-/**
- * 
- */
+
 public class ONeill implements Movable{
-public Cell aCell;
-    private Quarter dir;
-   private CellElement box;
+public Cell aCell;//aktuális cella
+    private Quarter dir;//erre néz éppen ONeill
+   private CellElement box;//A nála lévő doboz
 
-    /**
-     * Default constructor
-     */
+
     public ONeill() {
-    }
+    }//konstruktor
 
-    public ONeill(Cell a,Quarter quarter) {
+    public ONeill(Cell a,Quarter quarter) {//konstruktor
         aCell=a;
         dir=quarter;
 
@@ -30,10 +26,7 @@ public Cell aCell;
     }
 
 
-    /**
-     * 
-     */
-    public void moveTo(Quarter quarter) {
+    public void moveTo(Quarter quarter) {//Lép a következő mezőre
         Cell nCell= aCell.getNeighbour(quarter);
             this.dir=quarter;
             if (nCell.enterMovable())
@@ -45,35 +38,14 @@ public Cell aCell;
         }
 
     }
-   /*
 
-    public void moveTo(Quarter irany,Cell szom) {
-        Cell nCell= szom;
-        if (nCell.enterMovable())
-        {aCell.exitMovable();
-            aCell=nCell;
-            aCell.acceptMovable(this);
-
-
-        }
-
-    }
-
-    */
-
-    /**
-     * 
-     */
-    public void shoot() {
+    public void shoot() {//kilő egy lövedéket
         Projectile bullet= new Projectile(this.aCell);
         bullet.launch(dir);
 
     }
 
-    /**
-     * 
-     */
-    public void boxUp() {
+    public void boxUp() {//Felvesz egy dobozt
 
         box= aCell.getNeighbour(dir).take();
 
@@ -83,7 +55,7 @@ public Cell aCell;
     /**
      * 
      */
-    public void boxDown() {
+    public void boxDown() {//Letesz egy dobozt maga elé
         Cell nCell= aCell.getNeighbour(dir);
         if (nCell.enterMovable())
         {

@@ -10,25 +10,16 @@ import game.roles.Movable;
  * 
  */
 public class ZPM extends CellElement{
-static Exit exit;
-    /**
-     * Default constructor
-     */
-    public ZPM() {
+static Exit exit;//kilépő kapu
+
+    public ZPM() {//konstruktor
     }
 
-    /**
-     * 
-     */
-    public static int count;
 
-    /**
-     * 
-     * @param movable
-     * @return 
-     */
+    public static int count;//hány darab zpm van még
+
     @Override
-    public boolean acceptMovable(Movable movable) {
+    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
 count--;
       //  if(count ==0) Exit.open();
         return true;

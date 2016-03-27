@@ -8,10 +8,9 @@ import tool.LOGGER;
  */
 public abstract class CellElement {
 
-    /**
-     * Default constructor
-     */
-    public CellElement() {
+
+
+    public CellElement() {   //    Default constructor
     }
 
 
@@ -19,7 +18,7 @@ public abstract class CellElement {
      * @param movable 
      * @return
      */
-    public boolean acceptMovable(Movable movable) {
+    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
         LOGGER.enterCell(this);
 
         return false;
@@ -29,7 +28,7 @@ public abstract class CellElement {
      * @param quarter
      * @return
      */
-    public boolean obstacleForProjectile(Quarter quarter) {
+    public boolean obstacleForProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek
         LOGGER.meetProjectile(this);
 
         return false;
@@ -38,7 +37,7 @@ public abstract class CellElement {
     /**
      * @return
      */
-    public boolean enterMovable() {
+    public boolean enterMovable() {//lekérdezzük, hogy jöhet-e Movable
         LOGGER.askCell(this);
 
         return true;
@@ -47,7 +46,7 @@ public abstract class CellElement {
     /**
      * 
      */
-    public void exitMovable() {
+    public void exitMovable() {//Jelezzük, hogy elment a Movable
         LOGGER.leaveCell(this);
 
     }
@@ -57,7 +56,7 @@ public abstract class CellElement {
      */
     public CellElement take() {
         return null;
-    }
+    }//A doboz felvételéhez szükséges függvény
     
     @Override
     public String toString(){

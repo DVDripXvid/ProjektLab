@@ -10,7 +10,7 @@ public interface Movable {
     /**
      * 
      */
-    default public void destroy(){
+    default public void destroy(){//Megsemmisíti a movable-t
          LOGGER.destroyMovable(this);
     }
     

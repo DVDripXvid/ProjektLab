@@ -3,7 +3,7 @@ package game.map;
 /**
  * 
  */
-public enum Quarter {
+public enum Quarter {//Az irányok felsorolása
     
     EAST,
     WEST,

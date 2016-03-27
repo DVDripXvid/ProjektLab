@@ -15,7 +15,7 @@ protected Gate myGate;
     }
 
     @Override                       // a függvény felülírása az aktuális osztályra 
-    public boolean acceptMovable(Movable movable) {
+    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
         myGate.open();              // ráléptek, kinyílik az ajtó
         return false;               // a mérleg nem ZPM
     }

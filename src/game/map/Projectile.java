@@ -9,11 +9,8 @@ import tool.LOGGER;
 public class Projectile {
 Cell aCell;
 
-    /**
-     * @param cell
-     */
 
-    public Projectile(Cell cell) {
+    public Projectile(Cell cell) {//konsrtuktor
 
         this.aCell=cell;
        LOGGER.ProjectileLaunched();
@@ -22,7 +19,7 @@ Cell aCell;
     /**
      * @param quarter
      */
-    public void launch(Quarter quarter) {
+    public void launch(Quarter quarter) {//Elindul a lövedék
         Cell nCell= aCell.getNeighbour(quarter);
         while (!nCell.testProjectile(quarter)){
         LOGGER.ProjectilePassedCell(aCell);

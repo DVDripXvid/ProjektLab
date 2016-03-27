@@ -9,61 +9,46 @@ import game.roles.Movable;
  * 
  */
 public abstract class Door extends CellElement{
-protected boolean isClosed;
-    /**
-     * Default constructor
-     */
+protected boolean isClosed;//zárva vagy nyitva van
+
+
     public Door() {
         isClosed=false;
-    }
+    }// Default constructor
 
-    /**
-     * 
-     * @param movable
-     * @return 
-     */
+
     @Override
-    public boolean acceptMovable(Movable movable) {
-        // TODO implement here
+    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
+
         return false;
     }
-public boolean isClosed(){
+public boolean isClosed(){//lekérdezzük, hogy zárva van-e
 
     return isClosed;
 }
-    /**
-     * @param quarter
-     * @return
-     */
+
     @Override
-    public boolean obstacleForProjectile(Quarter quarter) {
-        // TODO implement here
+    public boolean obstacleForProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek
+
         return false;
     }
 
-    /**
-     * @return
-     */
+
     @Override
-    public boolean enterMovable() {
-        // TODO implement here
+    public boolean enterMovable() {//lekérdezzük, hogy jöhet-e Movable
+
         return false;
     }
 
-    /**
-     * 
-     */
     @Override
-    public void exitMovable() {
-        // TODO implement here
+    public void exitMovable() {//Jelezzük, hogy elment a Movable
+
     }
 
-    /**
-     * @return
-     */
+
     @Override
-    public CellElement take() {
-        // TODO implement here
+    public CellElement take() {//doboz felvevésnél játszik szerepet, itt nem
+
         return null;
     }
 

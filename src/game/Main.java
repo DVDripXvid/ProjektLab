@@ -30,7 +30,7 @@ public class Main {
 
 
 
-    public static String read() {
+    public static String read() {//beolvasás
         BufferedReader buff = new BufferedReader(new InputStreamReader(System.in));
         String line = null;
         try {

@@ -8,30 +8,28 @@ import game.map.Quarter;
 import java.awt.*;
 
 
-/**
- * 
- */
+
 
 
 public class ShootableWall extends Wall {
 
-    public enum PortalColor {
+    public enum PortalColor {//A portál színének fajtái
         BLUE,
         YELLOW;
     }
 
-  public   static PortalColor portalColor = null;
-    private static Portal bluePortal;
-    private static Portal yellowPortal;
-    private Cell myCell;
+  public   static PortalColor portalColor = null;//milyen színű lövedéktípus van betöltve
+    private static Portal bluePortal;//kék portál
+    private static Portal yellowPortal;// sárga portál
+    private Cell myCell;// a fal cellája
 
     public ShootableWall(Cell cell) {
         myCell=cell;
-    }
+    }//konstruktor
 
 
     @Override
-    public boolean obstacleForProjectile(Quarter quarter) {
+    public boolean obstacleForProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek és létrehozzunk a portált
 
         switch (quarter) {
             case NORTH:
@@ -65,10 +63,10 @@ public class ShootableWall extends Wall {
         return true;
     }
 
-    private final class Portal{
+    private final class Portal{//Portál belső class
 
-        private Cell cell;
-        private Quarter quarter;
+        private Cell cell;//hol van a portál
+        private Quarter quarter;//a falnak melyik oldalán
 
         public Portal(Cell cell, Quarter quarter) {
             this.cell = cell;
@@ -77,19 +75,19 @@ public class ShootableWall extends Wall {
 
         public Cell getCell() {
             return cell;
-        }
+        }//lekérdezzük a cellát ahol van
 
         public void setCell(Cell cell) {
             this.cell = cell;
-        }
+        }////beállítjuk a cellát ahol van
 
         public Quarter getQuarter() {
             return quarter;
-        }
+        }//lekérdezzük az irányt amerre néz
 
         public void setQuarter(Quarter quarter) {
             this.quarter = quarter;
-        }
+        }//beállítjuk az irányt amerre néz
 
 
     }

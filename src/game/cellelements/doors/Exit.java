@@ -7,9 +7,7 @@ import game.roles.Movable;
 import tool.LOGGER;
 
 
-/**
- * 
- */
+
 public class Exit extends Door {
 
 
@@ -17,40 +15,30 @@ public class Exit extends Door {
 
     }
 
-    /**
-     * 
-     * @param movable
-     * @return 
-     */
     @Override
-    public boolean acceptMovable(Movable movable) {
+    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable így vége a játéknak
         LOGGER.gameSuccess();
         return false;
     }
 
-    /**
-     * @param quarter
-     * @return
-     */
+
     @Override
     public boolean obstacleForProjectile(Quarter quarter) {
         return false;
-    }
+    }//Lekérdezzük, hogy akadály-e a lövedéknek
 
-    /**
-     * @return
-     */
+
     @Override
-    public boolean enterMovable() {
+    public boolean enterMovable() {//lekérdezzük, hogy jöhet-e Movable
 
 return !isClosed;
 
     }
-    public void open() {
+    public void open() {//kinyitjuk az ajtót
 
         isClosed=false;
         LOGGER.doorStatus(this);
-        // TODO implement here
+
     }
 
 

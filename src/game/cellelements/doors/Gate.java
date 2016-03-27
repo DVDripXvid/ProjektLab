@@ -11,59 +11,41 @@ import tool.LOGGER;
  */
 public class Gate extends Door {
 
-    /**
-     * Default constructor
-     */
-    public Gate() {
+
+
+    public Gate() { //Default constructor
     }
     
-    /**
-     * 
-     * @param movable
-     * @return 
-     */
+
     @Override
-    public boolean acceptMovable(Movable movable) {
-        // TODO implement here
-        return false;
+    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
+               return false;
     }
 
-    /**
-     * @param quarter
-     * @return
-     */
+
     @Override
-    public boolean obstacleForProjectile(Quarter quarter) {
+    public boolean obstacleForProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek
         if(isClosed)
             return false;
         else return true;
     }
 
-    /**
-     * @return
-     */
     @Override
-    public boolean enterMovable() {
-        // TODO implement here
+    public boolean enterMovable() {//lekérdezzük, hogy jöhet-e Movable
         if(isClosed)
         return false;
         else return true;
     }
 
-    /**
-     * 
-     */
+
     @Override
-    public void exitMovable() {
-        // TODO implement here
+    public void exitMovable() {//Jelezzük, hogy elment a Movable
+
     }
 
-    /**
-     * @return
-     */
     @Override
-    public CellElement take() {
-        // TODO implement here
+    public CellElement take() {//doboz felvevésnél játszik szerepet, itt nem
+
         return null;
     }
 

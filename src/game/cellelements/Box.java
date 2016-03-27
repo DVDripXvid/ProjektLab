@@ -17,13 +17,13 @@ public class Box extends CellElement implements Movable{
     }
     
     @Override                           // a függvény felülírása az aktuális osztályra
-    public boolean enterMovable() {     
+    public boolean enterMovable() {     //lekérdezzük, hogy jöhet-e Movable
 
         return false;                   // dobozra nem lehet lépni
     }
     
     @Override                           // a függvény felülírása az aktuális osztályra
-    public boolean obstacleForProjectile(Quarter quarter) { 
+    public boolean obstacleForProjectile(Quarter quarter) { //Lekérdezzük, hogy akadály-e a lövedéknek
 
         return true;                    // a doboz megálítja a lövedéket
     }

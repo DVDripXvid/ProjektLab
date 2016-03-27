@@ -11,36 +11,24 @@ import java.util.HashMap;
  */
 public class Cell {
 
-private HashMap<Quarter,Cell>neighbours;
-    private ArrayList<CellElement>ElementList;
-    /**
-     * Default constructor
-     */
-    public Cell() {
+private HashMap<Quarter,Cell>neighbours;//Szomszédos cellákat irány szerint tároló map
+    private ArrayList<CellElement>ElementList;// a cellán lév Elementeket tartalmazó lista
+
+
+    public Cell() {  //Default constructor
 
         ElementList=new ArrayList<CellElement>();
 neighbours= new HashMap<Quarter,Cell>();
     }
 
-
-
-
-
-
-
-    /**
-     * @param cellElement
-     * @return
-     */
-    public boolean placeBox(CellElement cellElement) {
-        // TODO implement here
+    public boolean placeBox(CellElement cellElement) {//Doboz lehelyezése
         return false;
     }
 
     /**
      * @return
      */
-    public CellElement take() {
+    public CellElement take() {//Doboz felvétele
         CellElement visz=null;
         for (int i=0;i<ElementList.size();i++) {
          if(ElementList.get(i).take()!=null)
@@ -50,20 +38,13 @@ neighbours= new HashMap<Quarter,Cell>();
         return visz;
     }
 
-    /**
-     * @param quarter 
-     * @return
-     */
-    public Cell getNeighbour(Quarter quarter) {
+
+    public Cell getNeighbour(Quarter quarter) {//Szomszéd irány szerinti lekérése
         Cell nCell= neighbours.get(quarter);
         return nCell;
     }
 
-    /**
-     * @param quarter 
-     * @return
-     */
-    public boolean testProjectile(Quarter quarter) {
+    public boolean testProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek a rajta lévő Elementek
         boolean obstacle=false;
         for (int i=0;i<ElementList.size();i++) {
          obstacle= obstacle || ElementList.get(i).obstacleForProjectile(quarter);
@@ -73,18 +54,13 @@ neighbours= new HashMap<Quarter,Cell>();
         return obstacle;
     }
 
-    /**
-     * @return
-     */
-    public boolean enterMovable() {
+
+    public boolean enterMovable() {//lekérdezzük, hogy jöhet-e Movable
         boolean ret=true;
         for (int i=0;i<ElementList.size();i++) {
 
 ret=ret&& ElementList.get(i).enterMovable();
         }
-
-
-
 
         return ret;
     }
@@ -92,18 +68,14 @@ ret=ret&& ElementList.get(i).enterMovable();
     /**
      * 
      */
-    public void exitMovable() {
+    public void exitMovable() {//Jelezzük, hogy elment a Movable
         for (int i=0;i<ElementList.size();i++)
            ElementList.get(i).exitMovable();
 
 
     }
 
-    /**
-     * @param movable
-     * @return
-     */
-    public boolean acceptMovable(Movable movable) {
+    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
         for (int i=0;i<ElementList.size();i++)
             if(ElementList.get(i).acceptMovable(movable))
                 ElementList.remove(i);
@@ -113,11 +85,7 @@ ret=ret&& ElementList.get(i).enterMovable();
         return false;
     }
 
-    /**
-     * @param quarter
-     * @param cell
-     */
-    public void setNeighbour(Quarter quarter, Cell cell) {
+    public void setNeighbour(Quarter quarter, Cell cell) {//Szomszéd irány szerinti beállítása
         Quarter opdir=Quarter.NORTH;
         switch (quarter) {
             case NORTH:
@@ -136,22 +104,11 @@ ret=ret&& ElementList.get(i).enterMovable();
 
 
        neighbours.put(quarter,cell);
-       // cell.setNeighbour(opdir,this);
-      /////////////////////////////////ez itt nem jó
-
 
     }
 
-    /**
-     * @param cellElement
-     */
     public void addElement(CellElement cellElement) {
         ElementList.add(cellElement);
-    }
-
-    /**
-     * 
-     */
-
+    }//Új CellElement ráadása a cellára
 
 }
