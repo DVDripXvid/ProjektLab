@@ -46,7 +46,12 @@ public class Exit extends Door {
 return !isClosed;
 
     }
+    public void open() {
 
+        isClosed=false;
+        LOGGER.doorStatus(this);
+        // TODO implement here
+    }
 
 
 

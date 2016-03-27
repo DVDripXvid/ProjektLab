@@ -66,7 +66,7 @@ neighbours= new HashMap<Quarter,Cell>();
     public boolean testProjectile(Quarter quarter) {
         boolean obstacle=false;
         for (int i=0;i<ElementList.size();i++) {
-         obstacle= obstacle &&ElementList.get(i).obstacleForProjectile(quarter);
+         obstacle= obstacle || ElementList.get(i).obstacleForProjectile(quarter);
 
         }
 

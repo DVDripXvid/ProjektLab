@@ -75,7 +75,7 @@ public class Main {
         ce0.setNeighbour(Quarter.SOUTH, ce1);
         ce1.setNeighbour(Quarter.SOUTH, ce2);
 
-        ShootableWall swall = new ShootableWall();
+        ShootableWall swall = new ShootableWall(ce2);
         ce2.addElement(swall);
 
         ONeill o = new ONeill(ce0,Quarter.SOUTH);
@@ -213,16 +213,18 @@ public class Main {
         ce2.setNeighbour(Quarter.SOUTH, ce3);
         ce3.setNeighbour(Quarter.SOUTH, ce4);
 
-        ShootableWall swall1 = new ShootableWall();
+        ShootableWall swall1 = new ShootableWall(ce0);
         ce0.addElement(swall1);
 
-        ShootableWall swall2 = new ShootableWall();
+        ShootableWall swall2 = new ShootableWall(ce4);
         ce4.addElement(swall2);
 
         ONeill o = new ONeill(ce2, Quarter.SOUTH);
 
         o.shoot();
+        swall1.portalColor= ShootableWall.PortalColor.BLUE;
         o.moveTo(Quarter.NORTH);
+        swall1.portalColor= ShootableWall.PortalColor.YELLOW;
         o.shoot();
 
     }
