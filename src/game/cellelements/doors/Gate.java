@@ -1,6 +1,6 @@
 package game.cellelements.doors;
 
-import game.map.Quarter;
+import game.map.Projectile;
 import game.roles.CellElement;
 import game.roles.Movable;
 import tool.LOGGER;
@@ -8,61 +8,33 @@ import tool.LOGGER;
 /**
  *
  */
-public class Gate extends Door {
+public class Gate extends CellElement {
 
-    public Gate() { //Default constructor
+    protected boolean isClosed;//zárva vagy nyitva van
+
+    public Gate() {
+        isClosed = false;
+    }// Default constructor
+
+    public boolean isClosed() {//lekérdezzük, hogy zárva van-e
+        return isClosed;
     }
 
     @Override
-    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
-        LOGGER.log(this);
-        return false;
+    public boolean obstacleForProjectile(Projectile projectile) {//Lekérdezzük, hogy akadály-e a lövedéknek
+        return isClosed;
     }
 
     @Override
-    public boolean obstacleForProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek
-        LOGGER.log(this);
-        if (isClosed) {
-            return false;
-        } else {
-            return true;
-        }
+    public boolean enterMovable(Movable movable) {//lekérdezzük, hogy jöhet-e Movable
+        return !isClosed;
     }
-
-    @Override
-    public boolean enterMovable() {//lekérdezzük, hogy jöhet-e Movable
-        LOGGER.log(this);
-        if (isClosed) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public void exitMovable() {//Jelezzük, hogy elment a Movable
-        LOGGER.log(this);
-    }
-
-    @Override
-    public CellElement take() {//doboz felvevésnél játszik szerepet, itt nem
-        LOGGER.log(this);
-        return null;
-    }
-
-    /**
-     *
-     */
-    public void open() {
-        LOGGER.log(this);
+    
+    public void open(){
         isClosed = false;
     }
-
-    /**
-     *
-     */
-    public void close() {
-        LOGGER.log(this);
+    
+    public void close(){
         isClosed = true;
     }
 

@@ -7,23 +7,40 @@ import tool.LOGGER;
 
 public class Scales extends CellElement {
 
-    protected Gate myGate;
+    private int limit;
+    private int weight = 0;
+    private Gate myGate;
 
-    public Scales(Gate gate) {
-        myGate = gate;                // összekötjük a mérleget az ajtajával
+    public Scales(int limit, Gate myGate) {
+        this.limit = limit;
+        this.myGate = myGate;
+    }
+
+    public Scales() {
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+    
+     public void setGate(Gate gate){
+        myGate = gate;
     }
 
     @Override                       // a függvény felülírása az aktuális osztályra 
-    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
-        LOGGER.log(this);
-        myGate.open();              // ráléptek, kinyílik az ajtó
-        return false;               // a mérleg nem ZPM
+    public void acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
+        weight += movable.getWeight();
+        if(myGate.isClosed() && weight >= limit){
+            myGate.open();
+        }
     }
 
     @Override                       // a függvény felülírása az aktuális osztályra 
-    public void exitMovable() {
-        LOGGER.log(this);
-        myGate.close();             // elléptek róla, bezárul az ajtó
+    public void exitMovable(Movable movable) {
+        weight -= movable.getWeight();
+        if(!myGate.isClosed() && weight < limit){
+            myGate.close();
+        }
     }
 
 }

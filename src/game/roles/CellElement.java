@@ -1,6 +1,6 @@
 package game.roles;
 
-import game.map.Quarter;
+import game.map.Projectile;
 import tool.LOGGER;
 
 /**
@@ -8,53 +8,43 @@ import tool.LOGGER;
  */
 public abstract class CellElement {
 
-    public CellElement() {   //    Default constructor
-    }
-
     /**
      * @param movable
+     */
+    public void acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
+    }
+
+    /**
+     * @param projectile
      * @return
      */
-    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
-        LOGGER.log(this);
+    public boolean obstacleForProjectile(Projectile projectile) {//Lekérdezzük, hogy akadály-e a lövedéknek
         return false;
     }
 
     /**
-     * @param quarter
-     * @return
+     * @param movable the value of movable
+     * @return the boolean
      */
-    public boolean obstacleForProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek
-        LOGGER.log(this);
-        return false;
-    }
-
-    /**
-     * @return
-     */
-    public boolean enterMovable() {//lekérdezzük, hogy jöhet-e Movable
-        LOGGER.log(this);
+    public boolean enterMovable(Movable movable) {//lekérdezzük, hogy jöhet-e Movable
         return true;
     }
 
     /**
      *
+     * @param movable the value of par0
      */
-    public void exitMovable() {//Jelezzük, hogy elment a Movable
+    public void exitMovable(Movable movable) {//Jelezzük, hogy elment a Movable
         LOGGER.log(this);
     }
 
     /**
-     * @return
+     *
+     * @param movable
+     * @return the boolean 
      */
-    public CellElement take() {
-        LOGGER.log(this);
-        return null;
+    public boolean take(Movable movable) {
+        return false;
     }//A doboz felvételéhez szükséges függvény
-
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName();
-    }
-
+    
 }

@@ -15,65 +15,41 @@ import tool.LOGGER;
 public class Cell {
 
     private final Map<Quarter, Cell> neighbours;//Szomszédos cellákat irány szerint tároló map
-    private final List<CellElement> ElementList;// a cellán lév Elementeket tartalmazó lista
+    private final List<CellElement> elementList;// a cellán lév Elementeket tartalmazó lista
 
     public Cell() {  //Default constructor
-        ElementList = new ArrayList<>();
+        elementList = new ArrayList<>();
         neighbours = new HashMap<>();
     }
 
-    public boolean placeBox(CellElement cellElement) {//Doboz lehelyezése
-        LOGGER.log(this);
-        LOGGER.newLevel(this);
-        boolean allow = true;
-        for(CellElement element: ElementList){
-            LOGGER.sameLevel(this);
-            allow = element.enterMovable();
-        }
-        LOGGER.endLevel(this);
-        return allow;
-    }
-
     /**
-     * @return
+     * @param movable the value of movable
      */
-    public CellElement take() {//Doboz felvétele
-        LOGGER.log(this);
-        LOGGER.newLevel(this);
-        CellElement visz = null;
-        for (int i = 0; i < ElementList.size(); i++) {
-            LOGGER.sameLevel(this);
-            visz = ElementList.get(i).take();
-            if (visz != null) {
-                visz = ElementList.remove(i);
+    public void take(Movable movable) {//Doboz felvétele
+        for (int i = elementList.size() - 1; i >= 0; i--) {
+            if (elementList.get(i).take(movable)) {
+                return;
             }
         }
-        LOGGER.endLevel(this);
-        return visz;
     }
 
     public Cell getNeighbour(Quarter quarter) {//Szomszéd irány szerinti lekérése
-        Cell nCell = neighbours.get(quarter);
-        return nCell;
+        return neighbours.get(quarter);
     }
 
-    public boolean testProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek a rajta lévő Elementek
-        LOGGER.log(this);
+    public boolean testProjectile(Projectile projectile) {//Lekérdezzük, hogy akadály-e a lövedéknek a rajta lévő Elementek
         boolean obstacle = false;
-        for (int i = 0; i < ElementList.size(); i++) {
-            obstacle = obstacle || ElementList.get(i).obstacleForProjectile(quarter);
-
+        for (int i = 0; i < elementList.size(); i++) {
+            obstacle = obstacle || elementList.get(i).obstacleForProjectile(projectile);
         }
 
         return obstacle;
     }
 
-    public boolean enterMovable() {//lekérdezzük, hogy jöhet-e Movable
-        LOGGER.log(this);
+    public boolean enterMovable(Movable movable) {//lekérdezzük, hogy jöhet-e Movable
         boolean ret = true;
-        for (int i = 0; i < ElementList.size(); i++) {
-
-            ret = ret && ElementList.get(i).enterMovable();
+        for (int i = 0; i < elementList.size(); i++) {
+            ret = ret && elementList.get(i).enterMovable(movable);
         }
 
         return ret;
@@ -81,49 +57,31 @@ public class Cell {
 
     /**
      *
+     * @param movable the value of movable
      */
-    public void exitMovable() {//Jelezzük, hogy elment a Movable
-        LOGGER.log(this);
-        for (int i = 0; i < ElementList.size(); i++) {
-            ElementList.get(i).exitMovable();
+    public void exitMovable(Movable movable) {//Jelezzük, hogy elment a Movable
+        for (int i = 0; i < elementList.size(); i++) {
+            elementList.get(i).exitMovable(movable);
         }
 
     }
 
-    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
-        LOGGER.log(this);
-        for (int i = 0; i < ElementList.size(); i++) {
-            if (ElementList.get(i).acceptMovable(movable)) {
-                ElementList.remove(i);
-            }
+    public void acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
+        for (CellElement cellElement : elementList) {
+            cellElement.acceptMovable(movable);
         }
-
-        return false;
     }
 
     public void setNeighbour(Quarter quarter, Cell cell) {//Szomszéd irány szerinti beállítása
-        Quarter opdir = Quarter.NORTH;
-        switch (quarter) {
-            case NORTH:
-                opdir = Quarter.SOUTH;
-                break;
-            case SOUTH:
-                opdir = Quarter.NORTH;
-                break;
-            case EAST:
-                opdir = Quarter.WEST;
-                break;
-            case WEST:
-                opdir = Quarter.EAST;
-                break;
-        }
-
         neighbours.put(quarter, cell);
-
     }
 
     public void addElement(CellElement cellElement) {
-        ElementList.add(cellElement);
+        elementList.add(cellElement);
     }//Új CellElement ráadása a cellára
+
+    public void removeElement(CellElement cellElement) {
+        elementList.remove(cellElement);
+    }
 
 }

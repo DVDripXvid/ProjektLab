@@ -1,23 +1,18 @@
 package game.cellelements;
 
-import game.map.Quarter;
+import game.map.Projectile;
 import game.roles.CellElement;
-import tool.LOGGER;
+import game.roles.Movable;
 
 public class Wall extends CellElement {
 
-    public Wall() {//Default constructor
-    }
-
     @Override
-    public boolean enterMovable() {//lekérdezzük, hogy jöhet-e Movable
-        LOGGER.log(this);
+    public boolean enterMovable(Movable movable) {//lekérdezzük, hogy jöhet-e Movable
         return false;
     }
 
     @Override
-    public boolean obstacleForProjectile(Quarter quarter) {//Lekérdezzük, hogy akadály-e a lövedéknek
-        LOGGER.log(this);
+    public boolean obstacleForProjectile(Projectile projectile) {//Lekérdezzük, hogy akadály-e a lövedéknek
         return true;
     }
 

@@ -21,11 +21,11 @@ public abstract class LOGGER {
 
     private static String tabs = "";
 
-    public boolean isLoggingTime() {
+    public static boolean isLoggingTime() {
         return loggingTime;
     }
 
-    public void setLoggingTime(boolean loggingTime) {
+    public static void setLoggingTime(boolean loggingTime) {
         LOGGER.loggingTime = loggingTime;
     }
 
@@ -35,13 +35,13 @@ public abstract class LOGGER {
         }
 
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-        for (int i = stackTraceElements.length - 1; i >= 0; --i) {
-            StackTraceElement stackTraceElement = stackTraceElements[i];
+        for (StackTraceElement stackTraceElement: stackTraceElements) {
             if (object.getClass().getName().equals(stackTraceElement.getClassName())
                     || object.getClass().getSuperclass().getName().equals(stackTraceElement.getClassName())) {
                 System.out.print(" --> ");
                 System.out.print(stackTraceElement.getMethodName());
                 System.out.print("(" + objects.get(object) + ")");
+                return;
             }
         }
     }

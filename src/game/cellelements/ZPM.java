@@ -1,29 +1,34 @@
 package game.cellelements;
 
 import game.cellelements.doors.Exit;
-import game.map.Quarter;
 import game.roles.CellElement;
 import game.roles.Movable;
-import tool.LOGGER;
 
 /**
  *
  */
 public class ZPM extends CellElement {
 
-    static Exit exit;//kilépő kapu
-
-    public ZPM() {//konstruktor
-    }
+    static Exit EXIT;//kilépő kapu
 
     public static int count;//hány darab zpm van még
+    
+    public ZPM() {//konstruktor
+        ++count;
+    }
+    
+    public static void setEXIT(Exit exit){
+        EXIT = exit;
+    }
 
     @Override
-    public boolean acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
-        LOGGER.log(this);
-        count--;
-        //  if(count ==0) Exit.open();
-        return true;
+    public void acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
+        movable.meetWith(this);
+    }
+    
+    public void destroy(){
+        --count;
+        if(count <= 0) EXIT.open();
     }
 
 }
