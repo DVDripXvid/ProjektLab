@@ -1,15 +1,19 @@
 package game.map;
 
 /**
- * 
+ * Az irányok felsorolása
  */
-public enum Quarter {//Az irányok felsorolása
-    
+public enum Quarter {
+
     EAST,
     WEST,
     SOUTH,
     NORTH;
-    
+
+    /**
+     * A függvény visszaadja az aktuális irány ellentetettjét
+     * @return
+     */
     public Quarter opposite(){
         switch (this) {
             case NORTH:

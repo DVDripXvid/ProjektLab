@@ -1,12 +1,20 @@
 package game.map;
 
 /**
- *
+ * Lövedék osztálya
  */
 public class Projectile {
-
+    /**
+     * Aktuális cella, amin a lövedék található.
+     */
     Cell aCell;
+    /**
+     * Lövedék színe
+     */
     Color color;
+    /**
+     * Lövedék haladási iránya.
+     */
     Quarter quarter;
 
     public Projectile(Cell cell) {//konsrtuktor
@@ -26,9 +34,13 @@ public class Projectile {
     }
 
     /**
-     * @param quarter
+     * Lövedék elindítása. Az adott irányba folyamatosan lekéri a következő cellára lépés lehetőségét a következő
+     * cella testProjectile metódusával és pozitív visszajelzés esetén megváltoztatja az aktuális celláját a szomszéd
+     * cellájéra.
+     *
+     * @param quarter a lövedék haladási iránya
      */
-    public void launch(Quarter quarter) {//Elindul a lövedék
+    public void launch(Quarter quarter) {
         this.quarter = quarter;
         Cell nCell = aCell.getNeighbour(quarter);
         while (!nCell.testProjectile(this)) {
@@ -37,7 +49,10 @@ public class Projectile {
         }
     }
 
-    public static enum Color {//A portál színének fajtái
+    /**
+     * Lövedék színének fajtái
+     */
+    public static enum Color {
         BLUE,
         YELLOW,
         RED,

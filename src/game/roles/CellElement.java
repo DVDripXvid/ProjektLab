@@ -4,14 +4,15 @@ import game.map.Projectile;
 import tool.LOGGER;
 
 /**
- *
+ * Minden mező elemnek az ősosztálya.
  */
 public abstract class CellElement {
 
     /**
+     *
      * @param movable
      */
-    public void acceptMovable(Movable movable) {//Jelezzük, hogy megérkezett a Movable
+    public void acceptMovable(Movable movable) {
     }
 
     /**
