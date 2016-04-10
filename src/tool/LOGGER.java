@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author Olivér
+ * Logger osztálya
+ * @author Rottenhoffer
  */
 public abstract class LOGGER {
 

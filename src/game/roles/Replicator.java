@@ -14,7 +14,7 @@ import game.map.Quarter;
  */
 public class Replicator extends CellElement implements Runnable, Movable{
     /**
-     * Aktuális cella, amin a játékos van.
+     * Aktuális cella, amin a replikátor van.
      */
     private Cell actualCell;
 
