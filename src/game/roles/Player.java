@@ -6,17 +6,12 @@ import game.cellelements.ZPM;
 import game.cellelements.doors.Exit;
 import game.map.Cell;
 import game.map.MapManager;
-import game.map.Projectile;
 import game.map.Quarter;
 
 /**
  * Játékost megvalósító osztály.
  */
-public class Player implements Movable {
-    /**
-     * Referencia a mapManagerre
-     */
-    private MapManager mapManager;
+public class Player implements Movable {    
     /**
      * Súly
      */
@@ -37,15 +32,14 @@ public class Player implements Movable {
      * Felvett doboz referenciája.
      */
     private Box box;
+    
+    private Projectile.Color projectileColor;
 
-    public Player() {
-    }
-
-    public Player(Cell cell, Quarter quarter, int weight, MapManager mapManager) {
+    public Player(Cell cell, Quarter quarter, int weight, Projectile.Color color) {
+        projectileColor = color;
         actualCell = cell;
         dir = quarter;
         this.weight = weight;
-        this.mapManager = mapManager;
     }
     
     public void setWeight(int weight) {
@@ -68,6 +62,9 @@ public class Player implements Movable {
             actualCell.exitMovable(this);
             actualCell = nCell;
             actualCell.acceptMovable(this);
+            System.out.println("moved to: " + MapManager.INSTANCE.getCoordinate(nCell));
+        }else{
+            System.out.println("move failure");
         }
     }
 
@@ -75,8 +72,12 @@ public class Player implements Movable {
      * Lövedék kilövése
      */
     public void shoot() {
-        Projectile bullet = new Projectile(actualCell);
-        bullet.launch(dir);
+        Projectile bullet = new Projectile(actualCell, projectileColor);
+        bullet.launch(dir, MapManager.INSTANCE.maxWayLength());
+    }
+    
+    public void changeColor(){
+        projectileColor = projectileColor.getPair();
     }
 
     /**
@@ -84,6 +85,10 @@ public class Player implements Movable {
      * doboz felvevési szándékát.
      */
     public void boxUp() {
+        if(box != null){
+            System.out.println("taking box failed");
+            return;
+        }
         Cell nCell = actualCell.getNeighbour(dir);
         nCell.take(this);
     }
@@ -99,6 +104,7 @@ public class Player implements Movable {
         weight += box.getWeight();
         box.setActualCell(null);
         this.box = box;
+        System.out.println("box taken");
     }
 
     /**
@@ -113,6 +119,9 @@ public class Player implements Movable {
             nCell.acceptMovable(box);
             weight -= box.getWeight();
             box = null;
+            System.out.println("box put");
+        }else{
+            System.out.println("putting box failed");
         }
     }
 
@@ -122,7 +131,7 @@ public class Player implements Movable {
      */
     @Override
     public void meetWith(Abyss abyss) {
-        System.out.println("Game Over " + this.toString() + " died");
+        System.out.println(MapManager.INSTANCE.getPlayerName(this) + " died");
     }
 
     /**
@@ -131,11 +140,11 @@ public class Player implements Movable {
      */
     @Override
     public void meetWith(Exit exit) {
-        System.out.println(this.toString() + " won the game");
+        System.out.println(MapManager.INSTANCE.getPlayerName(this) + " won the game");
     }
 
     /**
-     * ZPM felvétele. Ha így páros számú ZPM-je lesz a játékosnak, meghívjuk a mapManager createZPM metódusát.
+     * ZPM felvétele. Ha így páros számú ZPM-je lesz a játékosnak, meghívjuk a MapManager.INSTANCE createZPM metódusát.
      * @param zpm
      */
     @Override
@@ -143,8 +152,9 @@ public class Player implements Movable {
         actualCell.removeElement(zpm);
         zpm.destroy();
         if(++zpmCount % 2 == 0){
-            mapManager.createZPM();
+            MapManager.INSTANCE.createZPM();
         }
+        System.out.println("zpm picked up by " + MapManager.INSTANCE.getPlayerName(this));
     }
 
     /**
@@ -161,6 +171,11 @@ public class Player implements Movable {
     @Override
     public int getWeight() {
         return weight;
+    }
+
+    @Override
+    public Cell getActualCell() {
+        return actualCell;
     }
 
 }

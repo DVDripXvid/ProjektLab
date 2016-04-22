@@ -4,6 +4,7 @@ import game.cellelements.Abyss;
 import game.cellelements.Box;
 import game.cellelements.ZPM;
 import game.cellelements.doors.Exit;
+import game.map.Cell;
 
 /**
  * A mozgó objektumok osztályainak interfésze
@@ -47,5 +48,7 @@ public interface Movable {
      * @return a movable súlya
      */
     public int getWeight();
+    
+    public Cell getActualCell();
     
 }

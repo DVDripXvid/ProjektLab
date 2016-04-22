@@ -22,6 +22,7 @@ public class ZPM extends CellElement {
      */
     public ZPM() {//konstruktor
         ++count;
+        System.out.println("zpm created");
     }
 
     /**
@@ -30,6 +31,10 @@ public class ZPM extends CellElement {
      */
     public static void setEXIT(Exit exit){
         EXIT = exit;
+    }
+
+    public static boolean isThereEXIT() {
+        return EXIT != null;
     }
 
     /**
@@ -49,7 +54,7 @@ public class ZPM extends CellElement {
      */
     public void destroy(){
         --count;
-        if(count <= 0) EXIT.open();
+        if(count <= 0 && EXIT != null) EXIT.open();
     }
 
 }

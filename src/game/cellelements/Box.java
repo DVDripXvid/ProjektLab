@@ -2,7 +2,7 @@ package game.cellelements;
 
 import game.cellelements.doors.Exit;
 import game.map.Cell;
-import game.map.Projectile;
+import game.roles.Projectile;
 import game.roles.CellElement;
 import game.roles.Movable;
 /**
@@ -18,14 +18,13 @@ public class Box extends CellElement implements Movable {
      */
     private Cell actualCell;
 
-    public Box() {
-    }
-
     public Box(int weight, Cell actualCell) {
         this.weight = weight;
         this.actualCell = actualCell;
+        System.out.println("box created");
     }
 
+    @Override
     public Cell getActualCell() {
         return actualCell;
     }
@@ -60,7 +59,7 @@ public class Box extends CellElement implements Movable {
      */
     @Override
     public boolean enterMovable(Movable movable) {     //lekérdezzük, hogy jöhet-e Movable
-        return meetWith(this);
+        return movable.meetWith(this);
     }
 
     /**
@@ -81,6 +80,7 @@ public class Box extends CellElement implements Movable {
      */
     @Override
     public void meetWith(Abyss abyss) {
+        System.out.println("the box has fallen into an abyss :(");
         actualCell.removeElement(this);
     }
 
@@ -103,6 +103,7 @@ public class Box extends CellElement implements Movable {
     public void meetWith(ZPM zpm) {
         actualCell.removeElement(zpm);
         zpm.destroy();
+        System.out.println("zpm destroyed");
     }
 
     /**
@@ -131,7 +132,7 @@ public class Box extends CellElement implements Movable {
      */
     @Override
     public void accept(Box box) {
-        throw new UnsupportedOperationException("box shuldn't try to take another box");
+        throw new UnsupportedOperationException("box shuld not try to take another box");
     }
 
 }

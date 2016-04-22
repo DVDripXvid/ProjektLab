@@ -5,8 +5,10 @@ import game.cellelements.Box;
 import game.cellelements.ZPM;
 import game.cellelements.doors.Exit;
 import game.map.Cell;
-import game.map.Projectile;
+import game.map.MapManager;
 import game.map.Quarter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Replikátor osztálya
@@ -17,9 +19,13 @@ public class Replicator extends CellElement implements Runnable, Movable{
      * Aktuális cella, amin a replikátor van.
      */
     private Cell actualCell;
+    
+    private boolean selfControll;
 
     public Replicator(Cell actualCell) {
+        this.selfControll = false;
         this.actualCell = actualCell;
+        System.out.println("replicator created");
     }
 
     /**
@@ -27,7 +33,14 @@ public class Replicator extends CellElement implements Runnable, Movable{
      */
     @Override
     public void run() {
-        //todo
+        while(selfControll){
+            System.out.println("marhára magamtól mozgok");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Replicator.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**
@@ -45,6 +58,7 @@ public class Replicator extends CellElement implements Runnable, Movable{
             actualCell.exitMovable(this);
             actualCell = neighbourCell;
             actualCell.acceptMovable(this);
+            System.out.println("moved to: " + MapManager.INSTANCE.getCoordinate(actualCell));
         }        
     }
 
@@ -57,6 +71,7 @@ public class Replicator extends CellElement implements Runnable, Movable{
     @Override
     public boolean obstacleForProjectile(Projectile projectile){
         actualCell.removeElement(this);
+        System.out.println("replicator out");
         return true;
     }
 
@@ -112,6 +127,11 @@ public class Replicator extends CellElement implements Runnable, Movable{
     @Override
     public int getWeight() {
         return 0;
+    }
+
+    @Override
+    public Cell getActualCell() {
+        return actualCell;
     }
 
     

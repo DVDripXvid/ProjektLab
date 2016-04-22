@@ -1,6 +1,6 @@
 package game.cellelements;
 
-import game.map.Projectile;
+import game.roles.Projectile;
 import game.roles.CellElement;
 import game.roles.Movable;
 
@@ -8,6 +8,11 @@ import game.roles.Movable;
  * Fal, minden más falnak az ősosztálya, ugyanakkor egy mező elem.
  */
 public class Wall extends CellElement {
+
+    public Wall() {
+        System.out.println("wall created");
+    }
+    
     /**
      * Egy mozgó objektum azonos cellára lépési szándékát jelzi.
      *

@@ -28,4 +28,5 @@ public enum Quarter {
         throw new IllegalStateException("Unknown quarter");
     }
     
+    
 }

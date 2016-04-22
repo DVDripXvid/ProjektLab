@@ -10,6 +10,7 @@ import game.roles.Movable;
 public class Abyss extends CellElement {
 
     public Abyss(Cell cell) {
+        System.out.println("abyss created");
     }
 
     /**
