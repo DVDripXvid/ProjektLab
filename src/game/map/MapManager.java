@@ -138,6 +138,9 @@ public enum MapManager {
     }
     
     public Player getPlayer(String name){
+        if(!players.containsKey(name)){
+            throw new IllegalArgumentException("player does not exists");
+        }
         return players.get(name);
     }
 
@@ -196,5 +199,13 @@ public enum MapManager {
 
     public Replicator getReplicator() {
         return replicator;
+    }
+    
+    public void removePlayer(Player player){
+        players.remove(getPlayerName(player));
+    }
+    
+    public void removeReplicator(){
+        replicator = null;
     }
 }

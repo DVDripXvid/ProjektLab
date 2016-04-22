@@ -55,10 +55,14 @@ public class Replicator extends CellElement implements Runnable, Movable{
     public void moveTo(Quarter quarter){
         Cell neighbourCell = actualCell.getNeighbour(quarter);
         if(neighbourCell.enterMovable(this)){
+            System.out.println("moved to: " + MapManager.INSTANCE.getCoordinate(neighbourCell));
             actualCell.exitMovable(this);
+            actualCell.removeElement(this);
             actualCell = neighbourCell;
-            actualCell.acceptMovable(this);
-            System.out.println("moved to: " + MapManager.INSTANCE.getCoordinate(actualCell));
+            neighbourCell.addElement(this);
+            neighbourCell.acceptMovable(this);
+        }else{
+            System.out.println("move failure");
         }        
     }
 
@@ -71,6 +75,7 @@ public class Replicator extends CellElement implements Runnable, Movable{
     @Override
     public boolean obstacleForProjectile(Projectile projectile){
         actualCell.removeElement(this);
+        MapManager.INSTANCE.removeReplicator();
         System.out.println("replicator out");
         return true;
     }
@@ -85,6 +90,8 @@ public class Replicator extends CellElement implements Runnable, Movable{
     public void meetWith(Abyss abyss) {
         actualCell.removeElement(abyss);
         actualCell.removeElement(this);
+        MapManager.INSTANCE.removeReplicator();
+        System.out.println("replicator died and abyss filled (with replicator's remnands)");
     }
 
     /**

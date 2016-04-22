@@ -99,7 +99,8 @@ public class Cell {
      */
     public void acceptMovable(Movable movable) {
         //System.out.println(this + " accept :" + movable);
-        for (CellElement cellElement : elementList) {
+        List<CellElement> copyOfElements = new ArrayList<>(elementList);
+        for (CellElement cellElement : copyOfElements) {
             cellElement.acceptMovable(movable);
         }
     }

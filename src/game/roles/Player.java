@@ -59,10 +59,10 @@ public class Player implements Movable {
         Cell nCell = actualCell.getNeighbour(quarter);
         this.dir = quarter;
         if (nCell.enterMovable(this)) {
+            System.out.println("moved to: " + MapManager.INSTANCE.getCoordinate(nCell));
             actualCell.exitMovable(this);
             actualCell = nCell;
             actualCell.acceptMovable(this);
-            System.out.println("moved to: " + MapManager.INSTANCE.getCoordinate(nCell));
         }else{
             System.out.println("move failure");
         }
@@ -132,6 +132,7 @@ public class Player implements Movable {
     @Override
     public void meetWith(Abyss abyss) {
         System.out.println(MapManager.INSTANCE.getPlayerName(this) + " died");
+        MapManager.INSTANCE.removePlayer(this);
     }
 
     /**
