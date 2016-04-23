@@ -1,6 +1,5 @@
 package tool;
 
-import com.sun.tools.javah.Util;
 import game.cellelements.Abyss;
 import game.cellelements.Box;
 import game.cellelements.Scales;
@@ -241,7 +240,7 @@ public class Commander {
     private void load(String filename){
         try {
             Scanner scanner = new Scanner(new File(filename));
-            Printer.setOutStream("out/results/" + filename.split("/")[2]);
+            Printer.setOutStream("../results/" + filename.split("/")[2]);
             while (scanner.hasNext()) {
                 String next = scanner.nextLine();
                 process(next);

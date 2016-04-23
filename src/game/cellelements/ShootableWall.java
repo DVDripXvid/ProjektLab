@@ -4,6 +4,8 @@ import game.map.Cell;
 import game.map.MapManager;
 import game.roles.Projectile;
 import game.map.Quarter;
+import tool.Printer;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +54,7 @@ public class ShootableWall extends Wall {
             pairPortal.resetNeighbours();
         }
         Portal createdPortal = new Portal(myCell, projectile.getQuarter().opposite());
-        System.out.println(projectile.getColor().toString().toLowerCase()
+        Printer.print(projectile.getColor().toString().toLowerCase()
                 + " portal created: "
                 + MapManager.INSTANCE.getCoordinate(myCell));
         PORTALS.put(projectile.getColor(), createdPortal);
@@ -74,7 +76,7 @@ public class ShootableWall extends Wall {
         }
         if (foundColor != null) {
             PORTALS.remove(foundColor).resetNeighbours();
-            System.out.println(foundColor.toString().toLowerCase() + " portal destroyed at " + MapManager.INSTANCE.getCoordinate(myCell));
+            Printer.print(foundColor.toString().toLowerCase() + " portal destroyed at " + MapManager.INSTANCE.getCoordinate(myCell));
         }
     }
 
@@ -115,7 +117,7 @@ public class ShootableWall extends Wall {
             }
             neighbourCell.setNeighbour(quarter.opposite(), otherPortal.getNeighbourCell());
             otherPortal.getNeighbourCell().setNeighbour(otherPortal.getQuarter().opposite(), neighbourCell);
-            System.out.println("wormhole created between "
+            Printer.print("wormhole created between "
                     + MapManager.INSTANCE.getCoordinate(cell)
                     + " and "
                     + MapManager.INSTANCE.getCoordinate(otherPortal.getCell()));

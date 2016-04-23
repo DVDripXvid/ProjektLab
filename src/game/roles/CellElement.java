@@ -32,7 +32,7 @@ public abstract class CellElement {
      *
      * @param movable the value of par0
      */
-    public void exitMovable(Movable movable) {//Jelezzük, hogy elment a Movable
+    public void exitMovable(Movable movable) {
     }
 
     /**
@@ -42,6 +42,6 @@ public abstract class CellElement {
      */
     public boolean take(Movable movable) {
         return false;
-    }//A doboz felvételéhez szükséges függvény
+    }
     
 }

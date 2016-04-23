@@ -5,6 +5,8 @@ import game.map.Cell;
 import game.roles.Projectile;
 import game.roles.CellElement;
 import game.roles.Movable;
+import tool.Printer;
+
 /**
  * Doboz osztálya
  */
@@ -79,7 +81,7 @@ public class Box extends CellElement implements Movable {
      */
     @Override
     public void meetWith(Abyss abyss) {
-        System.out.println("the box has fallen into an abyss :(");
+        Printer.print("the box has fallen into an abyss :(");
         actualCell.removeElement(this);
     }
 
@@ -102,7 +104,7 @@ public class Box extends CellElement implements Movable {
     public void meetWith(ZPM zpm) {
         actualCell.removeElement(zpm);
         zpm.destroy();
-        System.out.println("zpm destroyed");
+        Printer.print("zpm destroyed");
     }
 
     /**

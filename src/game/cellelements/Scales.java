@@ -3,6 +3,7 @@ package game.cellelements;
 import game.cellelements.doors.Gate;
 import game.roles.CellElement;
 import game.roles.Movable;
+import tool.Printer;
 
 /**
  * A mérleg objektumok osztálya.
@@ -42,7 +43,7 @@ public class Scales extends CellElement {
     @Override
     public void acceptMovable(Movable movable) {
         weight += movable.getWeight();
-        System.out.println("weight on scales: " + weight + "/" + limit);
+        Printer.print("weight on scales: " + weight + "/" + limit);
         if (myGate != null && myGate.isClosed() && weight >= limit) {
             myGate.open();
         }

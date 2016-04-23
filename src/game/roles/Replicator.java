@@ -7,6 +7,8 @@ import game.cellelements.doors.Exit;
 import game.map.Cell;
 import game.map.MapManager;
 import game.map.Quarter;
+import tool.Printer;
+
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +43,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
                     MapManager.INSTANCE.turn.wait();
                     moveTo(randomQuarter());
                 } catch (InterruptedException ex) {
-                    System.out.println("replicator: error while waiting. message:" + ex.getMessage());
+                    Printer.print("replicator: error while waiting. message:" + ex.getMessage());
                 }
             }
         }
@@ -61,14 +63,14 @@ public class Replicator extends CellElement implements Runnable, Movable {
     public void moveTo(Quarter quarter) {
         Cell neighbourCell = actualCell.getNeighbour(quarter);
         if (neighbourCell.enterMovable(this)) {
-            System.out.println("replicator moved to: " + MapManager.INSTANCE.getCoordinate(neighbourCell));
+            Printer.print("replicator moved to: " + MapManager.INSTANCE.getCoordinate(neighbourCell));
             actualCell.exitMovable(this);
             actualCell.removeElement(this);
             actualCell = neighbourCell;
             neighbourCell.addElement(this);
             neighbourCell.acceptMovable(this);
         } else {
-            System.out.println("replicator: move failure");
+            Printer.print("replicator: move failure");
         }
     }
 
@@ -83,7 +85,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
     public boolean obstacleForProjectile(Projectile projectile) {
         actualCell.removeElement(this);
         MapManager.INSTANCE.removeReplicator();
-        System.out.println("replicator out");
+        Printer.print("replicator out");
         return true;
     }
 
@@ -99,7 +101,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
         actualCell.removeElement(abyss);
         actualCell.removeElement(this);
         MapManager.INSTANCE.removeReplicator();
-        System.out.println("replicator died and abyss filled (with replicator's remnants)");
+        Printer.print("replicator died and abyss filled (with replicator's remnants)");
     }
 
     /**

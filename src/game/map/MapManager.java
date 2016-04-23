@@ -25,8 +25,8 @@ public enum MapManager {
     int rowCount = 0;
     int columnCount = 0;
     private Cell[][] map;
-    private final Map<Cell, Coordinate> cells = new HashMap();
-    private final Map<String, Player> players = new HashMap();
+    private final Map<Cell, Coordinate> cells = new HashMap<>();
+    private final Map<String, Player> players = new HashMap<>();
     private final Map<Integer, ScalesBinding> scalesBindings = new HashMap<>();
     private Replicator replicator = null;
     public final Object turn = new Object();

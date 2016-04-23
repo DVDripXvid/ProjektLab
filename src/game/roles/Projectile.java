@@ -3,6 +3,7 @@ package game.roles;
 import game.map.Cell;
 import game.map.MapManager;
 import game.map.Quarter;
+import tool.Printer;
 
 /**
  * Lövedék osztálya
@@ -49,11 +50,11 @@ public class Projectile {
             actualCell = nCell;
             nCell = actualCell.getNeighbour(quarter);
             if(++time > timeout){
-                System.out.println("projectile energy depleted");
+                Printer.print("projectile energy depleted");
                 return;
             }
         }
-        System.out.println("projectile collided at " + MapManager.INSTANCE.getCoordinate(actualCell));
+        Printer.print("projectile collided at " + MapManager.INSTANCE.getCoordinate(actualCell));
     }
 
     /**
