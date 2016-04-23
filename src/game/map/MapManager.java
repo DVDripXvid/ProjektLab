@@ -142,6 +142,9 @@ public enum MapManager {
         replicator.setSelfControlled(randomReplicator);
         cell.addElement(replicator);
         cell.acceptMovable(replicator);
+        if (randomReplicator){
+            new Thread(replicator).start();
+        }
     }
 
     public void add(Scales scales, Cell cell, Integer id) {
