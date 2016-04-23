@@ -60,6 +60,11 @@ public class Player implements Movable {
      */
     public void moveTo(Quarter quarter) {
         synchronized (MapManager.INSTANCE.turn) {
+            if (!dir.equals(quarter)){
+                dir = quarter;
+                System.out.println("turned to: " + dir.toString());
+                return;
+            }
             Cell nCell = actualCell.getNeighbour(quarter);
             this.dir = quarter;
             if (nCell.enterMovable(this)) {
