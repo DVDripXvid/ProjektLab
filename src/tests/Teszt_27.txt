@@ -1,0 +1,3 @@
+setmap 1 1
+create scales 1 1 1 2
+create box 1 1 1

@@ -1,0 +1,3 @@
+setmap 1 2
+create replicator 1 1
+move replicatior east

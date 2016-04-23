@@ -1,0 +1,4 @@
+setmap 1 2
+create scales 1 1 1 1
+create gate 1 2 1
+create box 1 1 1

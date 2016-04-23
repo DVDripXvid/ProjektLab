@@ -1,0 +1,4 @@
+setmap 1 2
+create oneill 1 1 1
+create scales 1 2 1 1
+move oneill east
