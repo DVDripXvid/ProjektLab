@@ -29,7 +29,6 @@ public class ShootableWall extends Wall {
      */
     public ShootableWall(Cell cell) {
         myCell = cell;
-        System.out.println("shootable wall created");
     }
 
     /**
@@ -41,6 +40,8 @@ public class ShootableWall extends Wall {
      */
     @Override
     public boolean obstacleForProjectile(Projectile projectile) {
+        
+        overridePortal(projectile);
 
         Portal pairPortal = PORTALS.get(projectile.getColor().getPair());
         Portal sameColorPortal = PORTALS.get(projectile.getColor());
@@ -58,6 +59,23 @@ public class ShootableWall extends Wall {
         createdPortal.createWormhole(PORTALS.get(projectile.getColor().getPair()));
 
         return true;
+    }
+
+    private void overridePortal(Projectile projectile) {
+        Projectile.Color foundColor = null;
+        for (Map.Entry<Projectile.Color, Portal> entry : PORTALS.entrySet()) {
+            Projectile.Color key = entry.getKey();
+            Portal value = entry.getValue();
+            if (projectile.getQuarter().opposite().equals(value.getQuarter())
+                    && value.getCell().equals(this.myCell)) {
+                foundColor = key;
+                break;
+            }
+        }
+        if (foundColor != null) {
+            PORTALS.remove(foundColor).resetNeighbours();
+            System.out.println(foundColor.toString().toLowerCase() + " portal destroyed at " + MapManager.INSTANCE.getCoordinate(myCell));
+        }
     }
 
     /**
@@ -97,7 +115,7 @@ public class ShootableWall extends Wall {
             }
             neighbourCell.setNeighbour(quarter.opposite(), otherPortal.getNeighbourCell());
             otherPortal.getNeighbourCell().setNeighbour(otherPortal.getQuarter().opposite(), neighbourCell);
-            System.out.println("wormhole created: between "
+            System.out.println("wormhole created between "
                     + MapManager.INSTANCE.getCoordinate(cell)
                     + " and "
                     + MapManager.INSTANCE.getCoordinate(otherPortal.getCell()));

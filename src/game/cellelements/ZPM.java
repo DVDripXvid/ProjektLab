@@ -11,18 +11,17 @@ public class ZPM extends CellElement {
     /**
      * Kijárati ajtó.
      */
-    static Exit EXIT;
+    private static Exit EXIT = null;
     /**
      * Pályán lévő ZPM-ek száma.
      */
-    public static int count;
+    private static int count = 0;
 
     /**
      * Egy új ZPM létrejöttekor a pályán lévő ZPM-ek számát megnöveljük.
      */
-    public ZPM() {//konstruktor
+    public ZPM() {
         ++count;
-        System.out.println("zpm created");
     }
 
     /**

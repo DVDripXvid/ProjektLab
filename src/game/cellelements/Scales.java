@@ -52,7 +52,8 @@ public class Scales extends CellElement {
     @Override
     public void acceptMovable(Movable movable) {
         weight += movable.getWeight();
-        if (myGate.isClosed() && weight >= limit) {
+        System.out.println("weight on scales: " + weight + "/" + limit);
+        if (myGate != null && myGate.isClosed() && weight >= limit) {
             myGate.open();
         }
     }
@@ -65,7 +66,7 @@ public class Scales extends CellElement {
     @Override
     public void exitMovable(Movable movable) {
         weight -= movable.getWeight();
-        if (!myGate.isClosed() && weight < limit) {
+        if (myGate != null && !myGate.isClosed() && weight < limit) {
             myGate.close();
         }
     }

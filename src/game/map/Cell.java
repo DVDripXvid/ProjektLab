@@ -39,6 +39,7 @@ public class Cell {
                 return;
             }
         }
+        System.out.println("there is no box to provide at " + MapManager.INSTANCE.getCoordinate(this));
     }
 
     /**

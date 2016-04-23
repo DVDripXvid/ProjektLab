@@ -9,10 +9,6 @@ import game.roles.Movable;
  */
 public class Wall extends CellElement {
 
-    public Wall() {
-        System.out.println("wall created");
-    }
-    
     /**
      * Egy mozgó objektum azonos cellára lépési szándékát jelzi.
      *

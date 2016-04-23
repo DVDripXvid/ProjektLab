@@ -1,6 +1,7 @@
 package game.roles;
 
 import game.map.Cell;
+import game.map.MapManager;
 import game.map.Quarter;
 
 /**
@@ -10,7 +11,7 @@ public class Projectile {
     /**
      * Aktuális cella, amin a lövedék található.
      */
-    Cell aCell;
+    Cell actualCell;
     /**
      * Lövedék színe
      */
@@ -22,7 +23,7 @@ public class Projectile {
 
     public Projectile(Cell cell, Color color) {//konsrtuktor
         this.color = color;
-        this.aCell = cell;
+        this.actualCell = cell;
     }
 
     public Quarter getQuarter() {
@@ -42,13 +43,17 @@ public class Projectile {
      */
     public void launch(Quarter quarter, int timeout) {
         this.quarter = quarter;
-        Cell nCell = aCell.getNeighbour(quarter);
+        Cell nCell = actualCell.getNeighbour(quarter);
         int time = 0;
         while (!nCell.testProjectile(this)) {
-            aCell = nCell;
-            nCell = aCell.getNeighbour(quarter);
-            if(++time > timeout) return;
+            actualCell = nCell;
+            nCell = actualCell.getNeighbour(quarter);
+            if(++time > timeout){
+                System.out.println("projectile energy depleted");
+                return;
+            }
         }
+        System.out.println("projectile collided at " + MapManager.INSTANCE.getCoordinate(actualCell));
     }
 
     /**

@@ -1,5 +1,7 @@
 package game.map;
 
+import java.util.Random;
+
 /**
  * Az irányok felsorolása
  */
@@ -12,9 +14,10 @@ public enum Quarter {
 
     /**
      * A függvény visszaadja az aktuális irány ellentetettjét
+     *
      * @return
      */
-    public Quarter opposite(){
+    public Quarter opposite() {
         switch (this) {
             case NORTH:
                 return Quarter.SOUTH;
@@ -27,6 +30,5 @@ public enum Quarter {
         }
         throw new IllegalStateException("Unknown quarter");
     }
-    
     
 }

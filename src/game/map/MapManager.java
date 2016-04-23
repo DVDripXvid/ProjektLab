@@ -11,6 +11,7 @@ import game.roles.Player;
 import game.roles.Replicator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Térkép menedzser osztálya
@@ -18,7 +19,7 @@ import java.util.Map;
 public enum MapManager {
 
     INSTANCE;
-    
+
     int rowCount = 0;
     int columnCount = 0;
     private Cell[][] map;
@@ -26,6 +27,8 @@ public enum MapManager {
     private final Map<String, Player> players = new HashMap();
     private final Map<Integer, ScalesBinding> scalesBindings = new HashMap<>();
     private Replicator replicator = null;
+    public final Object turn = new Object();
+    private boolean randomizingZPM = false;
 
     /**
      * Térkép létrehozása.
@@ -38,10 +41,21 @@ public enum MapManager {
      * ZPM random helyre helyezése a térképen
      */
     public void createZPM() {
-        //todo
+        if(!randomizingZPM){
+            return;
+        }
+        Random rnd = new Random();
+        int randomRow = rnd.nextInt(rowCount - 2) + 1;
+        int randomColumn = rnd.nextInt(columnCount - 2) + 1;
+        while (!map[randomRow][randomColumn].getElementList().isEmpty()) {
+            randomRow = rnd.nextInt(rowCount - 2) + 1;
+            randomColumn = rnd.nextInt(columnCount - 2) + 1;
+        }
+        System.out.print("zpm created at " + randomRow + " " + randomColumn);
+        map[randomRow][randomColumn].addElement(new ZPM());
     }
-    
-    public int maxWayLength(){
+
+    public int maxWayLength() {
         return rowCount + columnCount;
     }
 
@@ -53,7 +67,7 @@ public enum MapManager {
         for (int i = 0; i < rowCount; ++i) {
             for (int j = 0; j < columnCount; ++j) {
                 Cell cell = new Cell();
-                if(i == 0 || i == rowCount - 1 || j == 0 || j == columnCount - 1){
+                if (i == 0 || i == rowCount - 1 || j == 0 || j == columnCount - 1) {
                     cell.addElement(new Wall());
                 }
                 map[i][j] = cell;
@@ -76,8 +90,8 @@ public enum MapManager {
             }
         }
     }
-    
-    public boolean checkBounds(int row, int column){
+
+    public boolean checkBounds(int row, int column) {
         return row < rowCount - 1 && row > 0 && column < columnCount - 1 && column > 0;
     }
 
@@ -93,55 +107,72 @@ public enum MapManager {
         if (!players.containsKey(name)) {
             players.put(name, player);
             player.getActualCell().acceptMovable(player);
+            System.out.println(name + " created");
         }
     }
-    
-    public void add(Exit exit){
-        if(!ZPM.isThereEXIT()){
+
+    public void add(Exit exit, Cell cell) {
+        if (!ZPM.isThereEXIT()) {
+            cell.addElement(exit);
             ZPM.setEXIT(exit);
         }
     }
-    
-    public void addNonSpecific(CellElement cellElement, Cell cell){
+
+    public void addNonSpecific(CellElement cellElement, Cell cell) {
+        System.out.println(cellElement.getClass().getSimpleName().toLowerCase() + " created");
         cell.addElement(cellElement);
     }
-    
-    public void add(Box box, Cell cell){
+
+    public void add(Box box, Cell cell) {
         cell.addElement(box);
         cell.acceptMovable(box);
     }
-    
-    public void add(Replicator replicator, Cell cell){
+
+    public void add(Replicator replicator, Cell cell) {
+        if(replicator != null){
+            throw new IllegalArgumentException("replicator already exist");
+        }
         this.replicator = replicator;
         cell.addElement(replicator);
         cell.acceptMovable(replicator);
     }
-    
-    public void add(Scales scales, Cell cell, Integer id){
+
+    public void add(Scales scales, Cell cell, Integer id) {
         cell.addElement(scales);
         ScalesBinding binding = scalesBindings.get(id);
-        if(binding == null){
+        if (binding == null) {
             binding = new ScalesBinding();
             scalesBindings.put(id, binding);
         }
         binding.bind(scales);
     }
-    
-    public void add(Gate gate, Cell cell, Integer id){
+
+    public void add(Gate gate, Cell cell, Integer id) {
         cell.addElement(gate);
         ScalesBinding binding = scalesBindings.get(id);
-        if(binding == null){
+        if (binding == null) {
             binding = new ScalesBinding();
             scalesBindings.put(id, binding);
         }
         binding.bind(gate);
     }
-    
-    public Player getPlayer(String name){
-        if(!players.containsKey(name)){
-            throw new IllegalArgumentException("player does not exists");
+
+    public Player getPlayer(String name) {
+        if (!players.containsKey(name)) {
+            throw new IllegalArgumentException("player does not exist");
         }
         return players.get(name);
+    }
+
+    public void startReplicator() {
+        if (!replicator.isSelfControlled()) {
+            replicator.setSelfControlled(true);
+            new Thread(replicator).start();
+        }
+    }
+
+    public void stopReplicator() {
+        replicator.setSelfControlled(false);
     }
 
     public class Coordinate {
@@ -159,20 +190,22 @@ public enum MapManager {
             return row + " " + column;
         }
     }
-    
-    private class ScalesBinding{
+
+    private class ScalesBinding {
+
         private Scales scales = null;
         private Gate gate = null;
-        
-        public void bind(Scales scales){
-            if(this.scales == null){
+
+        public void bind(Scales scales) {
+            if (this.scales == null) {
                 scales.setGate(gate);
                 this.scales = scales;
             }
         }
-        public void bind(Gate gate){
-            if(this.gate == null){
-                if(scales != null){
+
+        public void bind(Gate gate) {
+            if (this.gate == null) {
+                if (scales != null) {
                     scales.setGate(gate);
                 }
                 this.gate = gate;
@@ -187,10 +220,10 @@ public enum MapManager {
             return gate;
         }
     }
-    
-    public String getPlayerName(Player player){
+
+    public String getPlayerName(Player player) {
         for (Map.Entry<String, Player> entry : players.entrySet()) {
-            if(entry.getValue().equals(player)){
+            if (entry.getValue().equals(player)) {
                 return entry.getKey();
             }
         }
@@ -198,14 +231,26 @@ public enum MapManager {
     }
 
     public Replicator getReplicator() {
+        if(replicator == null){
+            throw new IllegalArgumentException("replicator does not exist");
+        }
         return replicator;
     }
-    
-    public void removePlayer(Player player){
+
+    public void removePlayer(Player player) {
         players.remove(getPlayerName(player));
     }
-    
-    public void removeReplicator(){
+
+    public void removeReplicator() {
+        replicator.setSelfControlled(false);
         replicator = null;
+    }
+
+    public boolean isRandomizingZPM() {
+        return randomizingZPM;
+    }
+
+    public void setRandomizingZPM(boolean randomizingZPM) {
+        this.randomizingZPM = randomizingZPM;
     }
 }

@@ -13,7 +13,7 @@ public class Gate extends CellElement {
 
     public Gate() {
         isClosed = true;
-        System.out.println("gate created");
+        System.out.println(getClass().getSimpleName().toLowerCase() + " created");
     }// Default constructor
 
     public boolean isClosed() {//lekérdezzük, hogy zárva van-e
@@ -31,11 +31,12 @@ public class Gate extends CellElement {
     }
     
     public void open(){
-        System.out.println("Ajtó kinyílt");
+        System.out.println(this.getClass().getSimpleName().toLowerCase() + " opened");
         isClosed = false;
     }
     
     public void close(){
+        System.out.println(this.getClass().getSimpleName().toLowerCase() + " closed");
         isClosed = true;
     }
 

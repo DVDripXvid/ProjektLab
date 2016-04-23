@@ -63,6 +63,10 @@ public class Commander {
                     validateNumberOfParams(params, 2);
                     delete(params[1], params[2]);
                     break;
+                case "random":
+                    validateNumberOfParams(params, 2);
+                    random(params[1], params[2]);
+                    break;
                 default:
                     System.out.println("unknown command");
             }
@@ -106,18 +110,46 @@ public class Commander {
     private void put(String playerString) {
         MapManager.INSTANCE.getPlayer(playerString).boxDown();
     }
+    
+    private void random(String elementString, String switchString){
+        switch(elementString){
+            case "replicator":
+                if(switchString.equals("on")){
+                    MapManager.INSTANCE.startReplicator();
+                }else if (switchString.equals("off")) {
+                    MapManager.INSTANCE.stopReplicator();
+                }else{
+                     throw new IllegalArgumentException("random command second parameter options: on, off");
+                }
+                break;
+            case "zpm":
+                if(switchString.equals("on")){
+                    MapManager.INSTANCE.setRandomizingZPM(true);
+                }else if (switchString.equals("off")) {
+                    MapManager.INSTANCE.setRandomizingZPM(false);
+                }else{
+                    throw new IllegalArgumentException("random command second parameter options: on, off");
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("random first parameter options: replicator, zpm");
+        }
+    }
 
     private void query(String rowString, String columnString) {
         int row = Integer.parseInt(rowString);
         int column = Integer.parseInt(columnString);
         if (!MapManager.INSTANCE.checkBounds(row, column)) {
-            System.out.println("coordinates out of bounds");
+            throw new IllegalArgumentException("coordinates out of bounds");
         }
         Cell cell = MapManager.INSTANCE.getCellAt(row, column);
 
         List<CellElement> elements = cell.getElementList();
+        if(elements.isEmpty()){
+            System.out.println("nothing is here");
+        }
         for (CellElement element : elements) {
-            System.out.println(element.getClass().getSimpleName());
+            System.out.println(element.getClass().getSimpleName().toLowerCase());
         }
     }
 
@@ -126,8 +158,7 @@ public class Commander {
         int row = Integer.parseInt(params[2]);
         int column = Integer.parseInt(params[3]);
         if (!MapManager.INSTANCE.checkBounds(row, column)) {
-            System.out.println("coordinates out of bounds");
-            return;
+            throw new IllegalArgumentException("coordinates out of bounds");
         }
         Cell cell = MapManager.INSTANCE.getCellAt(row, column);
 
@@ -153,10 +184,10 @@ public class Commander {
                 MapManager.INSTANCE.add(new Scales(Integer.parseInt(params[5])), cell, Integer.parseInt(params[4]));
                 break;
             case "abyss":
-                MapManager.INSTANCE.addNonSpecific(new Abyss(cell), cell);
+                MapManager.INSTANCE.addNonSpecific(new Abyss(), cell);
                 break;
             case "exit":
-                MapManager.INSTANCE.addNonSpecific(new Exit(), cell);
+                MapManager.INSTANCE.add(new Exit(), cell);
                 break;
             case "shootable":
                 MapManager.INSTANCE.addNonSpecific(new ShootableWall(cell), cell);
@@ -179,8 +210,7 @@ public class Commander {
         int row = Integer.parseInt(rowString);
         int column = Integer.parseInt(columnString);
         if (MapManager.INSTANCE.checkBounds(row, column)) {
-            System.out.println("coordinates out of bounds");
-            return;
+            throw new IllegalArgumentException("coordinates out of bounds");
         }
         MapManager.INSTANCE.getCellAt(row, column).getElementList().clear();
         System.out.println("elements deleted");
