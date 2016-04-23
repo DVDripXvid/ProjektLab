@@ -1,0 +1,8 @@
+map created
+gate created at 1 2
+scales created at 1 3
+box created at 1 3
+weight on scales: 1/1
+gate opened at 1 2
+replicator created at 1 1
+replicator moved to: 1 2

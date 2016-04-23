@@ -240,7 +240,7 @@ public class Commander {
     private void load(String filename){
         try {
             Scanner scanner = new Scanner(new File(filename));
-            Printer.setOutStream("../results/" + filename.split("/")[2]);
+            Printer.setOutStream(".." + File.separator + "results" + File.separator + filename.split(File.separator)[2]);
             while (scanner.hasNext()) {
                 String next = scanner.nextLine();
                 process(next);

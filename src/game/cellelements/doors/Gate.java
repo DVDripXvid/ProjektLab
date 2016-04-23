@@ -4,6 +4,7 @@ import game.map.MapManager;
 import game.roles.Projectile;
 import game.roles.CellElement;
 import game.roles.Movable;
+import tool.Printer;
 
 /**
  *
@@ -33,12 +34,12 @@ public class Gate extends CellElement {
     }
     
     public void open(){
-        System.out.println(this.getClass().getSimpleName().toLowerCase() + " opened at " + coordinate);
+        Printer.print(this.getClass().getSimpleName().toLowerCase() + " opened at " + coordinate);
         isClosed = false;
     }
     
     public void close(){
-        System.out.println(this.getClass().getSimpleName().toLowerCase() + " closed at " + coordinate);
+        Printer.print(this.getClass().getSimpleName().toLowerCase() + " closed at " + coordinate);
         isClosed = true;
     }
 

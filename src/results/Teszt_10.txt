@@ -1,0 +1,3 @@
+map created
+replicator created at 1 1
+player does not exist

@@ -1,0 +1,8 @@
+map created
+gate created at 1 2
+scales created at 2 1
+box created at 2 1
+weight on scales: 1/1
+gate opened at 1 2
+oneill created at 1 1
+projectile collided at 1 2

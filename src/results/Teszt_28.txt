@@ -1,0 +1,7 @@
+map created
+oneill created at 1 1
+zpm created at 1 2
+exit created at 1 3
+moved to: 1 2
+zpm picked up by oneill
+exit opened at 1 3

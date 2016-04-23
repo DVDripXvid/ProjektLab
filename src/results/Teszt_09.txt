@@ -1,0 +1,3 @@
+map created
+incorrect number of parameters
+player does not exist

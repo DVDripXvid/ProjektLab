@@ -1,0 +1,5 @@
+map created
+replicator created at 1 1
+scales created at 1 2
+replicator moved to: 1 2
+weight on scales: 0/2

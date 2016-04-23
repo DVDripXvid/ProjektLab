@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 /**
- * Created by Ádám on 23/04/2016.
+ * Kiírást megvalósító osztály
  */
 public abstract class Printer {
     static PrintWriter writer = new PrintWriter(System.out);
