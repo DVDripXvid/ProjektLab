@@ -15,7 +15,11 @@ import game.roles.CellElement;
 import game.roles.Player;
 import game.roles.Projectile;
 import game.roles.Replicator;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -67,11 +71,15 @@ public class Commander {
                     validateNumberOfParams(params, 2);
                     random(params[1], params[2]);
                     break;
+                case "load":
+                    validateNumberOfParams(params, 1);
+                    load(params[1]);
+                    break;
                 default:
-                    System.out.println("unknown command");
+                    Printer.print("unknown command");
             }
         } catch (IllegalArgumentException exception) {
-            System.out.println(exception.getMessage());
+            Printer.print(exception.getMessage());
         }
     }
 
@@ -146,10 +154,10 @@ public class Commander {
 
         List<CellElement> elements = cell.getElementList();
         if(elements.isEmpty()){
-            System.out.println("nothing is here");
+            Printer.print("nothing is here");
         }
         for (CellElement element : elements) {
-            System.out.println(element.getClass().getSimpleName().toLowerCase());
+            Printer.print(element.getClass().getSimpleName().toLowerCase());
         }
     }
 
@@ -208,7 +216,7 @@ public class Commander {
                 MapManager.INSTANCE.add(new Replicator(cell), cell);
                 break;
             default:
-                System.out.println("unknown element");
+                Printer.print("unknown element");
         }
     }
 
@@ -219,7 +227,7 @@ public class Commander {
             throw new IllegalArgumentException("coordinates out of bounds");
         }
         MapManager.INSTANCE.getCellAt(row, column).getElementList().clear();
-        System.out.println("elements deleted at: " + row + " " + column);
+        Printer.print("elements deleted at: " + row + " " + column);
     }
 
     private void setmap(String rows, String columns) {
@@ -227,6 +235,21 @@ public class Commander {
         int column = Integer.parseInt(columns);
 
         MapManager.INSTANCE.createMap(row, column);
+    }
+
+    private void load(String filename){
+        try {
+            Scanner scanner = new Scanner(new File(filename));
+            Printer.setOutStream("out/results/" + filename.split("/")[2]);
+            while (scanner.hasNext()) {
+                String next = scanner.nextLine();
+                process(next);
+            }
+            Printer.reset();
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            Printer.print("File not found");
+        }
     }
 
 }

@@ -9,6 +9,8 @@ import game.cellelements.doors.Gate;
 import game.roles.CellElement;
 import game.roles.Player;
 import game.roles.Replicator;
+import tool.Printer;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -32,13 +34,6 @@ public enum MapManager {
     private boolean randomReplicator = false;
 
     /**
-     * Térkép létrehozása.
-     */
-    public void loadMap() {
-        // TODO implement here
-    }
-
-    /**
      * ZPM random helyre helyezése a térképen
      */
     public void createZPM() {
@@ -52,7 +47,7 @@ public enum MapManager {
             randomRow = rnd.nextInt(rowCount - 2) + 1;
             randomColumn = rnd.nextInt(columnCount - 2) + 1;
         }
-        System.out.println("zpm created at " + randomRow + " " + randomColumn);
+        Printer.print("zpm created at " + randomRow + " " + randomColumn);
         map[randomRow][randomColumn].addElement(new ZPM());
     }
 
@@ -76,7 +71,7 @@ public enum MapManager {
             }
         }
         setNeighbours();
-        System.out.println("map created");
+        Printer.print("map created");
     }
 
     private void setNeighbours() {
@@ -107,28 +102,28 @@ public enum MapManager {
     public void add(Player player, String name) {
         if (!players.containsKey(name)) {
             players.put(name, player);
-            System.out.println(name + " created at " + getCoordinate(player.getActualCell()));
+            Printer.print(name + " created at " + getCoordinate(player.getActualCell()));
             player.getActualCell().acceptMovable(player);
         } else {
-            System.out.println(name + " already exist");
+            Printer.print(name + " already exist");
         }
     }
 
     public void add(Exit exit, Cell cell) {
         if (!ZPM.isThereEXIT()) {
-            System.out.println("exit created at " + getCoordinate(cell));
+            Printer.print("exit created at " + getCoordinate(cell));
             cell.addElement(exit);
             ZPM.setEXIT(exit);
         }
     }
 
     public void addNonSpecific(CellElement cellElement, Cell cell) {
-        System.out.println(cellElement.getClass().getSimpleName().toLowerCase() + " created at " + getCoordinate(cell));
+        Printer.print(cellElement.getClass().getSimpleName().toLowerCase() + " created at " + getCoordinate(cell));
         cell.addElement(cellElement);
     }
 
     public void add(Box box, Cell cell) {
-        System.out.println("box created at " + getCoordinate(cell));
+        Printer.print("box created at " + getCoordinate(cell));
         cell.addElement(box);
         cell.acceptMovable(box);
     }
@@ -137,7 +132,7 @@ public enum MapManager {
         if(this.replicator != null){
             throw new IllegalArgumentException("replicator already exist");
         }
-        System.out.println("replicator created at " + getCoordinate(cell));
+        Printer.print("replicator created at " + getCoordinate(cell));
         this.replicator = replicator;
         replicator.setSelfControlled(randomReplicator);
         cell.addElement(replicator);
@@ -149,7 +144,7 @@ public enum MapManager {
 
     public void add(Scales scales, Cell cell, Integer id) {
         cell.addElement(scales);
-        System.out.println("scales created at " + getCoordinate(cell));
+        Printer.print("scales created at " + getCoordinate(cell));
         ScalesBinding binding = scalesBindings.get(id);
         if (binding == null) {
             binding = new ScalesBinding();
@@ -160,7 +155,7 @@ public enum MapManager {
 
     public void add(Gate gate, Cell cell, Integer id) {
         cell.addElement(gate);
-        System.out.println("gate created at " + getCoordinate(cell));
+        Printer.print("gate created at " + getCoordinate(cell));
         ScalesBinding binding = scalesBindings.get(id);
         if (binding == null) {
             binding = new ScalesBinding();
@@ -178,7 +173,7 @@ public enum MapManager {
 
     public void startReplicator(){
         randomReplicator = true;
-        System.out.println("replicator random turned on");
+        Printer.print("replicator random turned on");
         if (replicator != null) {
             if (!replicator.isSelfControlled()) {
                 replicator.setSelfControlled(true);
@@ -189,7 +184,7 @@ public enum MapManager {
 
     public void stopReplicator() {
         randomReplicator = false;
-        System.out.println("replicator random turned off");
+        Printer.print("replicator random turned off");
         if(replicator != null) {
             replicator.setSelfControlled(false);
         }
@@ -261,9 +256,9 @@ public enum MapManager {
     public void setRandomizingZPM(boolean randomizingZPM) {
         this.randomizingZPM = randomizingZPM;
         if (randomizingZPM) {
-            System.out.println("zpm random turned on");
+            Printer.print("zpm random turned on");
         } else {
-            System.out.println("zpm random turned off");
+            Printer.print("zpm random turned off");
         }
     }
 }

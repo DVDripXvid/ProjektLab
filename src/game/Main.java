@@ -14,6 +14,7 @@ public class Main {
             
             commander.process(next);
         }
+        scanner.close();
     }
 
 }
