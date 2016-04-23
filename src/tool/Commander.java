@@ -209,11 +209,11 @@ public class Commander {
     private void delete(String rowString, String columnString) {
         int row = Integer.parseInt(rowString);
         int column = Integer.parseInt(columnString);
-        if (MapManager.INSTANCE.checkBounds(row, column)) {
+        if (!MapManager.INSTANCE.checkBounds(row, column)) {
             throw new IllegalArgumentException("coordinates out of bounds");
         }
         MapManager.INSTANCE.getCellAt(row, column).getElementList().clear();
-        System.out.println("elements deleted");
+        System.out.println("elements deleted at: " + row + " " + column);
     }
 
     private void setmap(String rows, String columns) {

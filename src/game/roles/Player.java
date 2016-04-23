@@ -43,9 +43,6 @@ public class Player implements Movable {
         this.weight = weight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
 
     /**
      * Paraméterül adott irányba lépés megvalósítása. Csak akkor lép, ha a az
@@ -62,7 +59,7 @@ public class Player implements Movable {
         synchronized (MapManager.INSTANCE.turn) {
             if (!dir.equals(quarter)){
                 dir = quarter;
-                System.out.println("turned to: " + dir.toString());
+                System.out.println("turned to: " + dir.toString().toLowerCase());
                 return;
             }
             Cell nCell = actualCell.getNeighbour(quarter);

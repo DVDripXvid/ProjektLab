@@ -129,7 +129,7 @@ public enum MapManager {
     }
 
     public void add(Replicator replicator, Cell cell) {
-        if(replicator != null){
+        if(this.replicator != null){
             throw new IllegalArgumentException("replicator already exist");
         }
         this.replicator = replicator;
@@ -244,10 +244,6 @@ public enum MapManager {
     public void removeReplicator() {
         replicator.setSelfControlled(false);
         replicator = null;
-    }
-
-    public boolean isRandomizingZPM() {
-        return randomizingZPM;
     }
 
     public void setRandomizingZPM(boolean randomizingZPM) {

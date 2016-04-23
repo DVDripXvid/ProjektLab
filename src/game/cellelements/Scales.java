@@ -28,15 +28,6 @@ public class Scales extends CellElement {
     }
 
     /**
-     * Súlyhatár settere
-     *
-     * @param limit új súlyhatár értéke
-     */
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
-
-    /**
      *
      * @param gate
      */
@@ -65,7 +56,9 @@ public class Scales extends CellElement {
      */
     @Override
     public void exitMovable(Movable movable) {
-        weight -= movable.getWeight();
+        if (weight != 0) {
+            weight -= movable.getWeight();
+        }
         if (myGate != null && !myGate.isClosed() && weight < limit) {
             myGate.close();
         }
