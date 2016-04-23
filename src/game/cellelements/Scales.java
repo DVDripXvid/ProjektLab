@@ -24,7 +24,6 @@ public class Scales extends CellElement {
 
     public Scales(int limit) {
         this.limit = limit;
-        System.out.println("scales created");
     }
 
     /**

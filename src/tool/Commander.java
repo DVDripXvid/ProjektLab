@@ -177,28 +177,34 @@ public class Commander {
                 break;
             case "gate":
                 validateNumberOfParams(params, 4);
-                MapManager.INSTANCE.add(new Gate(), cell, Integer.parseInt(params[4]));
+                MapManager.INSTANCE.add(new Gate(MapManager.INSTANCE.getCoordinate(cell)), cell, Integer.parseInt(params[4]));
                 break;
             case "scales":
                 validateNumberOfParams(params, 5);
                 MapManager.INSTANCE.add(new Scales(Integer.parseInt(params[5])), cell, Integer.parseInt(params[4]));
                 break;
             case "abyss":
+                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.addNonSpecific(new Abyss(), cell);
                 break;
             case "exit":
-                MapManager.INSTANCE.add(new Exit(), cell);
+                validateNumberOfParams(params, 3);
+                MapManager.INSTANCE.add(new Exit(MapManager.INSTANCE.getCoordinate(cell)), cell);
                 break;
             case "shootable":
+                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.addNonSpecific(new ShootableWall(cell), cell);
                 break;
             case "wall":
+                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.addNonSpecific(new Wall(), cell);
                 break;
             case "zpm":
+                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.addNonSpecific(new ZPM(), cell);
                 break;
             case "replicator":
+                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.add(new Replicator(cell), cell);
                 break;
             default:

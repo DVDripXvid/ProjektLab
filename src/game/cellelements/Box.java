@@ -21,7 +21,6 @@ public class Box extends CellElement implements Movable {
     public Box(int weight, Cell actualCell) {
         this.weight = weight;
         this.actualCell = actualCell;
-        System.out.println("box created");
     }
 
     @Override

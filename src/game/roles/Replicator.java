@@ -28,7 +28,6 @@ public class Replicator extends CellElement implements Runnable, Movable {
     public Replicator(Cell actualCell) {
         this.selfControlled = false;
         this.actualCell = actualCell;
-        System.out.println("replicator created");
     }
 
     /**
@@ -62,7 +61,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
     public void moveTo(Quarter quarter) {
         Cell neighbourCell = actualCell.getNeighbour(quarter);
         if (neighbourCell.enterMovable(this)) {
-            System.out.println("replicator: moved to: " + MapManager.INSTANCE.getCoordinate(neighbourCell));
+            System.out.println("replicator moved to: " + MapManager.INSTANCE.getCoordinate(neighbourCell));
             actualCell.exitMovable(this);
             actualCell.removeElement(this);
             actualCell = neighbourCell;
