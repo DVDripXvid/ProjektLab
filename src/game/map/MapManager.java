@@ -38,6 +38,7 @@ public enum MapManager {
      */
     public void createZPM() {
         if(!randomizingZPM){
+            Printer.print("a zpm should be created");
             return;
         }
         Random rnd = new Random();

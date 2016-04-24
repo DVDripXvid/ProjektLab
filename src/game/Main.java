@@ -11,7 +11,7 @@ public class Main {
         
         while (scanner.hasNext()) {
             String next = scanner.nextLine();
-            if (next.equals("exit"))
+            if (next.equals("close"))
                 break;
             commander.process(next);
         }

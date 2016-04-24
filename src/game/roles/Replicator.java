@@ -70,7 +70,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
             neighbourCell.addElement(this);
             neighbourCell.acceptMovable(this);
         } else {
-            Printer.print("replicator: move failure");
+            Printer.print("replicator move failure");
         }
     }
 
@@ -143,7 +143,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
      */
     @Override
     public void accept(Box box) {
-        throw new UnsupportedOperationException("Replicator cannot take box");
+        throw new UnsupportedOperationException("replicator cannot take box");
     }
 
     @Override
