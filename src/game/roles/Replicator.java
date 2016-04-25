@@ -41,7 +41,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
             synchronized (MapManager.INSTANCE.turn) {
                 try {
                     MapManager.INSTANCE.turn.wait();
-                    moveTo(randomQuarter());
+					if(selfControlled) moveTo(randomQuarter());
                 } catch (InterruptedException ex) {
                     Printer.print("replicator: error while waiting. message:" + ex.getMessage());
                 }
