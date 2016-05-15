@@ -15,11 +15,7 @@ import game.roles.CellElement;
 import game.roles.Player;
 import game.roles.Projectile;
 import game.roles.Replicator;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  *
@@ -71,15 +67,11 @@ public class Commander {
                     validateNumberOfParams(params, 2);
                     random(params[1], params[2]);
                     break;
-                case "load":
-                    validateNumberOfParams(params, 1);
-                    load(params[1]);
-                    break;
                 default:
-                    Printer.print("unknown command");
+                    System.out.println("unknown command");
             }
         } catch (IllegalArgumentException exception) {
-            Printer.print(exception.getMessage());
+            System.out.println(exception.getMessage());
         }
     }
 
@@ -154,10 +146,10 @@ public class Commander {
 
         List<CellElement> elements = cell.getElementList();
         if(elements.isEmpty()){
-            Printer.print("nothing is here");
+            System.out.println("nothing is here");
         }
         for (CellElement element : elements) {
-            Printer.print(element.getClass().getSimpleName().toLowerCase());
+            System.out.println(element.getClass().getSimpleName().toLowerCase());
         }
     }
 
@@ -185,49 +177,43 @@ public class Commander {
                 break;
             case "gate":
                 validateNumberOfParams(params, 4);
-                MapManager.INSTANCE.add(new Gate(MapManager.INSTANCE.getCoordinate(cell)), cell, Integer.parseInt(params[4]));
+                MapManager.INSTANCE.add(new Gate(), cell, Integer.parseInt(params[4]));
                 break;
             case "scales":
                 validateNumberOfParams(params, 5);
                 MapManager.INSTANCE.add(new Scales(Integer.parseInt(params[5])), cell, Integer.parseInt(params[4]));
                 break;
             case "abyss":
-                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.addNonSpecific(new Abyss(), cell);
                 break;
             case "exit":
-                validateNumberOfParams(params, 3);
-                MapManager.INSTANCE.add(new Exit(MapManager.INSTANCE.getCoordinate(cell)), cell);
+                MapManager.INSTANCE.add(new Exit(), cell);
                 break;
             case "shootable":
-                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.addNonSpecific(new ShootableWall(cell), cell);
                 break;
             case "wall":
-                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.addNonSpecific(new Wall(), cell);
                 break;
             case "zpm":
-                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.addNonSpecific(new ZPM(), cell);
                 break;
             case "replicator":
-                validateNumberOfParams(params, 3);
                 MapManager.INSTANCE.add(new Replicator(cell), cell);
                 break;
             default:
-                Printer.print("unknown element");
+                System.out.println("unknown element");
         }
     }
 
     private void delete(String rowString, String columnString) {
         int row = Integer.parseInt(rowString);
         int column = Integer.parseInt(columnString);
-        if (!MapManager.INSTANCE.checkBounds(row, column)) {
+        if (MapManager.INSTANCE.checkBounds(row, column)) {
             throw new IllegalArgumentException("coordinates out of bounds");
         }
         MapManager.INSTANCE.getCellAt(row, column).getElementList().clear();
-        Printer.print("elements deleted at: " + row + " " + column);
+        System.out.println("elements deleted");
     }
 
     private void setmap(String rows, String columns) {
@@ -235,21 +221,6 @@ public class Commander {
         int column = Integer.parseInt(columns);
 
         MapManager.INSTANCE.createMap(row, column);
-    }
-
-    private void load(String filename){
-        try {
-            Scanner scanner = new Scanner(new File(filename));
-            Printer.setOutStream(".." + File.separator + "results" + File.separator + filename.split(File.separator)[2]);
-            while (scanner.hasNext()) {
-                String next = scanner.nextLine();
-                process(next);
-            }
-            Printer.reset();
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            Printer.print("File not found");
-        }
     }
 
 }

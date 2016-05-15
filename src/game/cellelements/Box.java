@@ -5,8 +5,6 @@ import game.map.Cell;
 import game.roles.Projectile;
 import game.roles.CellElement;
 import game.roles.Movable;
-import tool.Printer;
-
 /**
  * Doboz osztálya
  */
@@ -23,6 +21,7 @@ public class Box extends CellElement implements Movable {
     public Box(int weight, Cell actualCell) {
         this.weight = weight;
         this.actualCell = actualCell;
+        System.out.println("box created");
     }
 
     @Override
@@ -81,7 +80,7 @@ public class Box extends CellElement implements Movable {
      */
     @Override
     public void meetWith(Abyss abyss) {
-        Printer.print("the box has fallen into an abyss :(");
+        System.out.println("the box has fallen into an abyss :(");
         actualCell.removeElement(this);
     }
 
@@ -104,7 +103,7 @@ public class Box extends CellElement implements Movable {
     public void meetWith(ZPM zpm) {
         actualCell.removeElement(zpm);
         zpm.destroy();
-        Printer.print("zpm destroyed");
+        System.out.println("zpm destroyed");
     }
 
     /**

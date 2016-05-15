@@ -7,7 +7,6 @@ import game.cellelements.doors.Exit;
 import game.map.Cell;
 import game.map.MapManager;
 import game.map.Quarter;
-import tool.Printer;
 
 /**
  * Játékost megvalósító osztály.
@@ -44,6 +43,9 @@ public class Player implements Movable {
         this.weight = weight;
     }
 
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
     /**
      * Paraméterül adott irányba lépés megvalósítása. Csak akkor lép, ha a az
@@ -58,20 +60,15 @@ public class Player implements Movable {
      */
     public void moveTo(Quarter quarter) {
         synchronized (MapManager.INSTANCE.turn) {
-            if (!dir.equals(quarter)){
-                dir = quarter;
-                Printer.print("turned to: " + dir.toString().toLowerCase());
-                return;
-            }
             Cell nCell = actualCell.getNeighbour(quarter);
             this.dir = quarter;
             if (nCell.enterMovable(this)) {
-                Printer.print("moved to: " + MapManager.INSTANCE.getCoordinate(nCell));
+                System.out.println("moved to: " + MapManager.INSTANCE.getCoordinate(nCell));
                 actualCell.exitMovable(this);
                 actualCell = nCell;
                 actualCell.acceptMovable(this);
             } else {
-                Printer.print("move failure");
+                System.out.println("move failure");
             }
             MapManager.INSTANCE.turn.notify();
         }
@@ -87,7 +84,7 @@ public class Player implements Movable {
 
     public void changeColor() {
         projectileColor = projectileColor.getPair();
-        Printer.print("projectile color changed to " + projectileColor.toString().toLowerCase());
+        System.out.println("projectile color changed to " + projectileColor.toString().toLowerCase());
     }
 
     /**
@@ -96,7 +93,7 @@ public class Player implements Movable {
      */
     public void boxUp() {
         if (box != null) {
-            Printer.print("player already has a box");
+            System.out.println("player already has a box");
             return;
         }
         Cell nCell = actualCell.getNeighbour(dir);
@@ -116,7 +113,7 @@ public class Player implements Movable {
         weight += box.getWeight();
         box.setActualCell(null);
         this.box = box;
-        Printer.print("box taken");
+        System.out.println("box taken");
     }
 
     /**
@@ -131,9 +128,9 @@ public class Player implements Movable {
             nCell.acceptMovable(box);
             weight -= box.getWeight();
             box = null;
-            Printer.print("box put");
+            System.out.println("box put");
         } else {
-            Printer.print("putting box failed");
+            System.out.println("putting box failed");
         }
     }
 
@@ -144,7 +141,7 @@ public class Player implements Movable {
      */
     @Override
     public void meetWith(Abyss abyss) {
-        Printer.print(MapManager.INSTANCE.getPlayerName(this) + " died");
+        System.out.println(MapManager.INSTANCE.getPlayerName(this) + " died");
         MapManager.INSTANCE.removePlayer(this);
     }
 
@@ -155,7 +152,7 @@ public class Player implements Movable {
      */
     @Override
     public void meetWith(Exit exit) {
-        Printer.print(MapManager.INSTANCE.getPlayerName(this) + " won the game");
+        System.out.println(MapManager.INSTANCE.getPlayerName(this) + " won the game");
     }
 
     /**
@@ -167,7 +164,7 @@ public class Player implements Movable {
     @Override
     public void meetWith(ZPM zpm) {
         actualCell.removeElement(zpm);
-        Printer.print("zpm picked up by " + MapManager.INSTANCE.getPlayerName(this));
+        System.out.println("zpm picked up by " + MapManager.INSTANCE.getPlayerName(this));
         zpm.destroy();
         if (++zpmCount % 2 == 0) {
             MapManager.INSTANCE.createZPM();

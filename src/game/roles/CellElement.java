@@ -1,9 +1,21 @@
 package game.roles;
 
+import graphics.UiElement;
+
 /**
  * Minden mező elemnek az ősosztálya.
  */
 public abstract class CellElement {
+
+    private UiElement uiElement;
+
+    public void setUiElement(UiElement ui){
+        uiElement = ui;
+    }
+
+    public void update(){
+        uiElement.update();
+    }
 
     /**
      *
@@ -32,7 +44,7 @@ public abstract class CellElement {
      *
      * @param movable the value of par0
      */
-    public void exitMovable(Movable movable) {
+    public void exitMovable(Movable movable) {//Jelezzük, hogy elment a Movable
     }
 
     /**
@@ -42,6 +54,6 @@ public abstract class CellElement {
      */
     public boolean take(Movable movable) {
         return false;
-    }
+    }//A doboz felvételéhez szükséges függvény
     
 }

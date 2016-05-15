@@ -1,23 +1,20 @@
 package game.cellelements.doors;
 
-import game.map.MapManager;
 import game.roles.Projectile;
 import game.roles.CellElement;
 import game.roles.Movable;
-import tool.Printer;
 
 /**
  *
  */
 public class Gate extends CellElement {
 
-    protected boolean isClosed;
-    private MapManager.Coordinate coordinate;
+    protected boolean isClosed;//zárva vagy nyitva van
 
-    public Gate(MapManager.Coordinate coordinate) {
+    public Gate() {
         isClosed = true;
-        this.coordinate = coordinate;
-    }
+        System.out.println(getClass().getSimpleName().toLowerCase() + " created");
+    }// Default constructor
 
     public boolean isClosed() {//lekérdezzük, hogy zárva van-e
         return isClosed;
@@ -34,12 +31,12 @@ public class Gate extends CellElement {
     }
     
     public void open(){
-        Printer.print(this.getClass().getSimpleName().toLowerCase() + " opened at " + coordinate);
+        System.out.println(this.getClass().getSimpleName().toLowerCase() + " opened");
         isClosed = false;
     }
     
     public void close(){
-        Printer.print(this.getClass().getSimpleName().toLowerCase() + " closed at " + coordinate);
+        System.out.println(this.getClass().getSimpleName().toLowerCase() + " closed");
         isClosed = true;
     }
 

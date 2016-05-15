@@ -7,8 +7,6 @@ import game.cellelements.doors.Exit;
 import game.map.Cell;
 import game.map.MapManager;
 import game.map.Quarter;
-import tool.Printer;
-
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +28,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
     public Replicator(Cell actualCell) {
         this.selfControlled = false;
         this.actualCell = actualCell;
+        System.out.println("replicator created");
     }
 
     /**
@@ -41,9 +40,9 @@ public class Replicator extends CellElement implements Runnable, Movable {
             synchronized (MapManager.INSTANCE.turn) {
                 try {
                     MapManager.INSTANCE.turn.wait();
-					if(selfControlled) moveTo(randomQuarter());
+                    moveTo(randomQuarter());
                 } catch (InterruptedException ex) {
-                    Printer.print("replicator: error while waiting. message:" + ex.getMessage());
+                    System.out.println("replicator: error while waiting. message:" + ex.getMessage());
                 }
             }
         }
@@ -63,14 +62,14 @@ public class Replicator extends CellElement implements Runnable, Movable {
     public void moveTo(Quarter quarter) {
         Cell neighbourCell = actualCell.getNeighbour(quarter);
         if (neighbourCell.enterMovable(this)) {
-            Printer.print("replicator moved to: " + MapManager.INSTANCE.getCoordinate(neighbourCell));
+            System.out.println("replicator: moved to: " + MapManager.INSTANCE.getCoordinate(neighbourCell));
             actualCell.exitMovable(this);
             actualCell.removeElement(this);
             actualCell = neighbourCell;
             neighbourCell.addElement(this);
             neighbourCell.acceptMovable(this);
         } else {
-            Printer.print("replicator move failure");
+            System.out.println("replicator: move failure");
         }
     }
 
@@ -85,7 +84,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
     public boolean obstacleForProjectile(Projectile projectile) {
         actualCell.removeElement(this);
         MapManager.INSTANCE.removeReplicator();
-        Printer.print("replicator out");
+        System.out.println("replicator out");
         return true;
     }
 
@@ -101,7 +100,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
         actualCell.removeElement(abyss);
         actualCell.removeElement(this);
         MapManager.INSTANCE.removeReplicator();
-        Printer.print("replicator died and abyss filled (with replicator's remnants)");
+        System.out.println("replicator died and abyss filled (with replicator's remnants)");
     }
 
     /**
@@ -143,7 +142,7 @@ public class Replicator extends CellElement implements Runnable, Movable {
      */
     @Override
     public void accept(Box box) {
-        throw new UnsupportedOperationException("replicator cannot take box");
+        throw new UnsupportedOperationException("Replicator cannot take box");
     }
 
     @Override

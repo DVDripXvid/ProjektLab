@@ -9,11 +9,8 @@ import game.cellelements.doors.Gate;
 import game.roles.CellElement;
 import game.roles.Player;
 import game.roles.Replicator;
-import tool.Printer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Térkép menedzser osztálya
@@ -25,20 +22,25 @@ public enum MapManager {
     int rowCount = 0;
     int columnCount = 0;
     private Cell[][] map;
-    private final Map<Cell, Coordinate> cells = new HashMap<>();
-    private final Map<String, Player> players = new HashMap<>();
+    private final Map<Cell, Coordinate> cells = new HashMap();
+    private final Map<String, Player> players = new HashMap();
     private final Map<Integer, ScalesBinding> scalesBindings = new HashMap<>();
     private Replicator replicator = null;
     public final Object turn = new Object();
     private boolean randomizingZPM = false;
-    private boolean randomReplicator = false;
+
+    /**
+     * Térkép létrehozása.
+     */
+    public void loadMap() {
+        // TODO implement here
+    }
 
     /**
      * ZPM random helyre helyezése a térképen
      */
     public void createZPM() {
         if(!randomizingZPM){
-            Printer.print("a zpm should be created");
             return;
         }
         Random rnd = new Random();
@@ -48,7 +50,7 @@ public enum MapManager {
             randomRow = rnd.nextInt(rowCount - 2) + 1;
             randomColumn = rnd.nextInt(columnCount - 2) + 1;
         }
-        Printer.print("zpm created at " + randomRow + " " + randomColumn);
+        System.out.print("zpm created at " + randomRow + " " + randomColumn);
         map[randomRow][randomColumn].addElement(new ZPM());
     }
 
@@ -72,7 +74,7 @@ public enum MapManager {
             }
         }
         setNeighbours();
-        Printer.print("map created");
+        System.out.println("map created");
     }
 
     private void setNeighbours() {
@@ -103,49 +105,39 @@ public enum MapManager {
     public void add(Player player, String name) {
         if (!players.containsKey(name)) {
             players.put(name, player);
-            Printer.print(name + " created at " + getCoordinate(player.getActualCell()));
             player.getActualCell().acceptMovable(player);
-        } else {
-            Printer.print(name + " already exist");
+            System.out.println(name + " created");
         }
     }
 
     public void add(Exit exit, Cell cell) {
         if (!ZPM.isThereEXIT()) {
-            Printer.print("exit created at " + getCoordinate(cell));
             cell.addElement(exit);
             ZPM.setEXIT(exit);
         }
     }
 
     public void addNonSpecific(CellElement cellElement, Cell cell) {
-        Printer.print(cellElement.getClass().getSimpleName().toLowerCase() + " created at " + getCoordinate(cell));
+        System.out.println(cellElement.getClass().getSimpleName().toLowerCase() + " created");
         cell.addElement(cellElement);
     }
 
     public void add(Box box, Cell cell) {
-        Printer.print("box created at " + getCoordinate(cell));
         cell.addElement(box);
         cell.acceptMovable(box);
     }
 
     public void add(Replicator replicator, Cell cell) {
-        if(this.replicator != null){
+        if(replicator != null){
             throw new IllegalArgumentException("replicator already exist");
         }
-        Printer.print("replicator created at " + getCoordinate(cell));
         this.replicator = replicator;
-        replicator.setSelfControlled(randomReplicator);
         cell.addElement(replicator);
         cell.acceptMovable(replicator);
-        if (randomReplicator){
-            new Thread(replicator).start();
-        }
     }
 
     public void add(Scales scales, Cell cell, Integer id) {
         cell.addElement(scales);
-        Printer.print("scales created at " + getCoordinate(cell));
         ScalesBinding binding = scalesBindings.get(id);
         if (binding == null) {
             binding = new ScalesBinding();
@@ -156,7 +148,6 @@ public enum MapManager {
 
     public void add(Gate gate, Cell cell, Integer id) {
         cell.addElement(gate);
-        Printer.print("gate created at " + getCoordinate(cell));
         ScalesBinding binding = scalesBindings.get(id);
         if (binding == null) {
             binding = new ScalesBinding();
@@ -172,23 +163,15 @@ public enum MapManager {
         return players.get(name);
     }
 
-    public void startReplicator(){
-        randomReplicator = true;
-        Printer.print("replicator random turned on");
-        if (replicator != null) {
-            if (!replicator.isSelfControlled()) {
-                replicator.setSelfControlled(true);
-                new Thread(replicator).start();
-            }
+    public void startReplicator() {
+        if (!replicator.isSelfControlled()) {
+            replicator.setSelfControlled(true);
+            new Thread(replicator).start();
         }
     }
 
     public void stopReplicator() {
-        randomReplicator = false;
-        Printer.print("replicator random turned off");
-        if(replicator != null) {
-            replicator.setSelfControlled(false);
-        }
+        replicator.setSelfControlled(false);
     }
 
     public class Coordinate {
@@ -227,6 +210,14 @@ public enum MapManager {
                 this.gate = gate;
             }
         }
+
+        public Scales getScales() {
+            return scales;
+        }
+
+        public Gate getGate() {
+            return gate;
+        }
     }
 
     public String getPlayerName(Player player) {
@@ -254,12 +245,19 @@ public enum MapManager {
         replicator = null;
     }
 
+    public boolean isRandomizingZPM() {
+        return randomizingZPM;
+    }
+
     public void setRandomizingZPM(boolean randomizingZPM) {
         this.randomizingZPM = randomizingZPM;
-        if (randomizingZPM) {
-            Printer.print("zpm random turned on");
-        } else {
-            Printer.print("zpm random turned off");
+    }
+
+    public List<Cell> getCellList(){
+        List<Cell> cells = new ArrayList<>();
+        for(Cell[] row: map){
+            cells.addAll(Arrays.asList(row));
         }
+        return cells;
     }
 }
