@@ -1,0 +1,7 @@
+map created
+oneill created at 1 1
+box created at 1 2
+box created at 1 3
+box taken
+moved to: 1 2
+box put

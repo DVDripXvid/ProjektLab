@@ -1,0 +1,14 @@
+setmap 8 8
+create oneill 2 2 3
+create jaffa 2 3 3
+create box 4 4 5
+create box 1 4 6
+create box 6 4 7
+create replicator 1 7
+create scales 6 6 8 9
+create gate 7 7 8
+create exit 8 8
+create zpm 1 1
+create abyss 1 6
+create abyss 2 7
+create abyss 1 8

@@ -1,0 +1,4 @@
+setmap 1 3
+create oneill 1 1 1
+create gate 1 3 1
+shoot oneill

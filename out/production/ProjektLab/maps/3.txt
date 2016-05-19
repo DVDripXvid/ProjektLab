@@ -1,0 +1,33 @@
+setmap 6 6
+create wall 1 1
+create wall 1 2
+create wall 1 3
+create wall 1 4
+create wall 1 5
+create wall 1 6
+create shootable 2 1
+create wall 3 1
+create wall 4 1
+create wall 5 1
+create wall 6 1
+create wall 6 2
+create wall 6 3
+create shootable 6 4
+create wall 6 5
+create wall 6 6
+create exit 2 6
+create wall 3 6
+create wall 4 6
+create wall 5 6
+create oneill 2 2 5
+create jaffa 5 2 5
+create abyss 2 3
+create abyss 3 3
+create scales 3 2 2 2
+create gate 5 3 2
+create wall 4 2
+create wall 4 3
+create zpm 3 5
+
+
+

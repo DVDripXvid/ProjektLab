@@ -1,0 +1,4 @@
+setmap 1 2
+create abyss 1 2
+create replicator 1 1
+move replicator east

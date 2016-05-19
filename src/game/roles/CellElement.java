@@ -1,12 +1,21 @@
 package game.roles;
 
-import game.map.Projectile;
-import tool.LOGGER;
+import graphics.UiElement;
 
 /**
  * Minden mező elemnek az ősosztálya.
  */
 public abstract class CellElement {
+
+    private UiElement uiElement;
+
+    public void setUiElement(UiElement ui){
+        uiElement = ui;
+    }
+
+    public void update(){
+        uiElement.update();
+    }
 
     /**
      *
@@ -36,7 +45,6 @@ public abstract class CellElement {
      * @param movable the value of par0
      */
     public void exitMovable(Movable movable) {//Jelezzük, hogy elment a Movable
-        LOGGER.log(this);
     }
 
     /**

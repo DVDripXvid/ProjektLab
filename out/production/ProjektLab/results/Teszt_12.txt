@@ -1,0 +1,5 @@
+map created
+abyss created at 1 2
+replicator created at 1 1
+replicator moved to: 1 2
+replicator died and abyss filled (with replicator's remnants)

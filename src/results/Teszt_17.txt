@@ -1,0 +1,4 @@
+map created
+replicator created at 1 1
+shootablewall created at 1 2
+replicator move failure

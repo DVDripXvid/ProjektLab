@@ -1,0 +1,6 @@
+map created
+scales created at 1 1
+gate created at 1 2
+box created at 1 1
+weight on scales: 1/1
+gate opened at 1 2

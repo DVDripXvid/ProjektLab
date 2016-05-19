@@ -1,0 +1,4 @@
+setmap 1 2
+create replicator 1 1
+create zpm 1 2
+move replicator east

@@ -1,0 +1,5 @@
+map created
+oneill created at 1 1
+replicator created at 1 3
+replicator out
+projectile collided at 1 2

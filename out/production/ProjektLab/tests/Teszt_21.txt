@@ -1,0 +1,6 @@
+setmap 2 2
+create gate 1 2 1
+create scales 2 1 1 1
+create box 2 1 1
+create oneill 1 1 1
+shoot oneill

@@ -1,9 +1,8 @@
 package game.cellelements.doors;
 
-import game.map.Projectile;
+import game.roles.Projectile;
 import game.roles.CellElement;
 import game.roles.Movable;
-import tool.LOGGER;
 
 /**
  *
@@ -13,7 +12,8 @@ public class Gate extends CellElement {
     protected boolean isClosed;//zárva vagy nyitva van
 
     public Gate() {
-        isClosed = false;
+        isClosed = true;
+        System.out.println(getClass().getSimpleName().toLowerCase() + " created");
     }// Default constructor
 
     public boolean isClosed() {//lekérdezzük, hogy zárva van-e
@@ -31,10 +31,12 @@ public class Gate extends CellElement {
     }
     
     public void open(){
+        System.out.println(this.getClass().getSimpleName().toLowerCase() + " opened");
         isClosed = false;
     }
     
     public void close(){
+        System.out.println(this.getClass().getSimpleName().toLowerCase() + " closed");
         isClosed = true;
     }
 

@@ -1,6 +1,5 @@
 package game.cellelements;
 
-import game.map.Cell;
 import game.roles.CellElement;
 import game.roles.Movable;
 
@@ -8,9 +7,6 @@ import game.roles.Movable;
  * Szakadékot megvalósító osztály.
  */
 public class Abyss extends CellElement {
-
-    public Abyss(Cell cell) {
-    }
 
     /**
      * Akkor hívódik meg, ha egy mozgó objektum lépett a gazdacellára.

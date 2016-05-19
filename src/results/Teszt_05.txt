@@ -1,0 +1,4 @@
+map created
+gate created at 1 2
+oneill created at 1 1
+move failure

@@ -1,0 +1,11 @@
+map created
+oneill created at 1 1
+zpm created at 1 2
+zpm created at 1 3
+zpm random turned off
+moved to: 1 2
+zpm picked up by oneill
+moved to: 1 3
+zpm picked up by oneill
+a ZPM should be created
+zpm created at 1 1

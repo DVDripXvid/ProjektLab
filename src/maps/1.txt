@@ -1,0 +1,21 @@
+setmap 5 5
+create shootable 1 1
+create shootable 2 1
+create shootable 3 1
+create shootable 4 1
+create shootable 5 1
+create shootable 1 5
+create shootable 2 5
+create shootable 3 5
+create shootable 4 5
+create shootable 5 5
+create shootable 1 2
+create shootable 1 3
+create shootable 1 4
+create shootable 5 2
+create shootable 5 3
+create shootable 5 4
+create abyss 2 3
+create box 3 3 4
+create oneill 2 2 1
+create jaffa 4 4 1

@@ -1,0 +1,5 @@
+map created
+oneill created at 1 1
+scales created at 1 2
+moved to: 1 2
+weight on scales: 1/1

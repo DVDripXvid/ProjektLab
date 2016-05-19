@@ -1,0 +1,8 @@
+setmap 1 4
+create oneill 1 1 1
+create zpm 1 2
+create zpm 1 3
+random zpm off
+move oneill east
+move oneill east
+create zpm 1 1

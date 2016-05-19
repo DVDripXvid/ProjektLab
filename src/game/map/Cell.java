@@ -1,5 +1,6 @@
 package game.map;
 
+import game.roles.Projectile;
 import game.roles.CellElement;
 import game.roles.Movable;
 
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import tool.LOGGER;
 
 /**
  * Mező vagy cella osztálya. Önmagában padlózatként funkcionál.
@@ -39,6 +39,7 @@ public class Cell {
                 return;
             }
         }
+        System.out.println("there is no box to provide at " + MapManager.INSTANCE.getCoordinate(this));
     }
 
     /**
@@ -68,6 +69,7 @@ public class Cell {
      * @return a cella elemek válasza. csak akkor true, ha semelyik elem sem akadály
      */
     public boolean enterMovable(Movable movable) {
+        //System.out.println(this + " enter: " + movable);
         boolean ret = true;
         for (int i = 0; i < elementList.size(); i++) {
             ret = ret && elementList.get(i).enterMovable(movable);
@@ -83,6 +85,7 @@ public class Cell {
      * @param movable a celláról lelépő mozgó objektum
      */
     public void exitMovable(Movable movable) {
+        //System.out.println(this + " exit: " + movable);
         for (int i = 0; i < elementList.size(); i++) {
             elementList.get(i).exitMovable(movable);
         }
@@ -96,7 +99,9 @@ public class Cell {
      * @param movable a cellára lépő mozgó objektum
      */
     public void acceptMovable(Movable movable) {
-        for (CellElement cellElement : elementList) {
+        //System.out.println(this + " accept :" + movable);
+        List<CellElement> copyOfElements = new ArrayList<>(elementList);
+        for (CellElement cellElement : copyOfElements) {
             cellElement.acceptMovable(movable);
         }
     }
@@ -109,6 +114,11 @@ public class Cell {
      */
     public void setNeighbour(Quarter quarter, Cell cell) {
         neighbours.put(quarter, cell);
+    }
+    
+    public void setNeighbourhood(Quarter quarter, Cell cell){
+        neighbours.put(quarter, cell);
+        cell.setNeighbour(quarter.opposite(), this);
     }
 
     /**
@@ -129,4 +139,8 @@ public class Cell {
         elementList.remove(cellElement);
     }
 
+    public List<CellElement> getElementList() {
+        return elementList;
+    }
+    
 }
